@@ -1,0 +1,41 @@
+CREATE TABLE FaceDetails
+(
+FaceID INT PRIMARY KEY IDENTITY(1,1),
+EmployeeID INT NOT NULL, 
+EmployeeName VARCHAR(50) NOT NULL,
+CompanyID INT NOT NULL,
+FaceEncodings VARBINARY(MAX) NOT NULL,
+CreateDate Date NOT NULL,
+CreatedBy  INT NOT NULL
+)
+
+
+
+
+Create Table EmployeeDetails
+(
+  EmployeeID INT PRIMARY KEY IDENTITY(1,1),
+  EmployeeName VARCHAR(50) NOT NULL,
+  EmployeeCode VARCHAR(30) NOT NULL,
+  CompanyID   INT NOT NULL,
+  DateOfBirth Date NOT NULL,
+  Gender INT NOT NULL,
+  State INT NOT NULL,
+  CreatedDate Date NOT NULL
+)
+
+
+Create Table CompanyDetails
+(
+ CompanyID INT PRIMARY KEY IDENTITY(1,1),
+ CompanyName VARCHAR(50) NOT NULL,
+ CompanyCode VARCHAR(30) NOT NULL,
+)
+
+
+Create Table HrDetails
+(
+  HRuserID INT PRIMARY KEY IDENTITY(1,1),
+  CompanyID INT NOT NULL,
+  EmployeeID INT NOT NULL
+)
