@@ -14,5 +14,11 @@ namespace FaceDetection.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult LoginAuth()
+        {
+            return View();
+        }
     }
 }
