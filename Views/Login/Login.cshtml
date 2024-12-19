@@ -5,7 +5,7 @@
 }
 
 <div class="container-fluid">
-    <div class="row">
+    <div class="row" style="height: 100vh;">
         <!-- Left Side: SVG Image -->
         <div class="col-md-6 d-none d-md-flex align-items-center justify-content-center">
             <img src="path/to/your/image.svg" alt="Login Image" class="img-fluid" />
@@ -13,7 +13,7 @@
 
         <!-- Right Side: Login Form -->
         <div class="col-md-6 d-flex align-items-center justify-content-center">
-            <div class="login-form">
+            <div class="login-form shadow-lg">
                 <h1 class="h3 mb-3 font-weight-normal text-center">Please sign in</h1>
                 <form asp-controller="Login" asp-action="Login" method="post">
                     <div class="form-group">
@@ -36,7 +36,6 @@
 <style>
     body {
         background-color: #f8f9fa;
-        height: 100vh;
         margin: 0;
     }
 
@@ -47,24 +46,40 @@
     .login-form {
         width: 100%;
         max-width: 400px;
-        padding: 20px;
+        padding: 30px;
         background-color: white;
-        border-radius: 5px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
+
+    h1 {
+        color: #343a40;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
 
     @@media (max-width: 768px) {
-        .d-none
+        .d-none {
+            display: none !important;
+        }
 
-    {
-        display: none !important;
-    }
-
-    .login-form {
-        padding: 15px;
-        width: 90%;
-        margin: auto;
-    }
-
+        .login-form {
+            padding: 20px;
+            width: 90%;
+            margin: auto;
+            box-shadow: none;
+        }
     }
 </style>
