@@ -4,38 +4,67 @@
     Layout = "_LayoutLogin";
 }
 
-<div class="text-center">
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-</div>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Left Side: SVG Image -->
+        <div class="col-md-6 d-none d-md-flex align-items-center justify-content-center">
+            <img src="path/to/your/image.svg" alt="Login Image" class="img-fluid" />
+        </div>
 
-<div class="row justify-content-center">
-    <div class="col-md-6 col-lg-4">
-        <form asp-controller="Login" asp-action="Login" method="post">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input asp-for="EmployeeCode" type="text" id="username" class="form-control" placeholder="Enter your username" required autofocus />
+        <!-- Right Side: Login Form -->
+        <div class="col-md-6 d-flex align-items-center justify-content-center">
+            <div class="login-form">
+                <h1 class="h3 mb-3 font-weight-normal text-center">Please sign in</h1>
+                <form asp-controller="Login" asp-action="Login" method="post">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input asp-for="EmployeeCode" type="text" id="username" class="form-control" placeholder="Enter your username" required autofocus />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input asp-for="Password" type="password" id="password" class="form-control" placeholder="Enter your password" required />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                </form>
             </div>
-
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input asp-for="Password" type="password" id="password" class="form-control" placeholder="Enter your password" required />
-            </div>
-
-
-
-            <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-        </form>
-
-
+        </div>
     </div>
 </div>
 
 <style>
     body {
         background-color: #f8f9fa;
+        height: 100vh;
+        margin: 0;
     }
 
-    .container {
-        margin-top: 100px;
+    .container-fluid {
+        height: 100%;
+    }
+
+    .login-form {
+        width: 100%;
+        max-width: 400px;
+        padding: 20px;
+        background-color: white;
+        border-radius: 5px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    @@media (max-width: 768px) {
+        .d-none
+
+    {
+        display: none !important;
+    }
+
+    .login-form {
+        padding: 15px;
+        width: 90%;
+        margin: auto;
+    }
+
     }
 </style>
