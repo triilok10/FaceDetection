@@ -1,4 +1,4 @@
-﻿@model FaceDetection.Models.StudentDetails;
+﻿@model FaceDetection.Models.LoginCategory;
 @{
     ViewData["Title"] = "Login";
     Layout = "_LayoutLogin";
@@ -163,13 +163,23 @@
                 <h1 class="h3 mb-3 font-weight-normal text-center text-dark">Please sign in</h1>
                 <form asp-controller="Login" asp-action="Login" method="post">
                     <div class="form-group mb-3">
+                        <label for="username">Login Category</label>
+                        <select asp-for="UserCategory">
+                            <option value="">Select</option>
+                            @foreach (var item in Enum.GetValues(typeof(FaceDetection.Models.UserLogin)))
+                            {
+                                <option value="@item">@item</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group mb-3">
                         <label for="username">Username</label>
-                        <input asp-for="StudentCode" type="text" id="StudentCode" class="form-control" placeholder="Enter your username" required autofocus />
+                        <input asp-for="UserName" type="text" id="UserName" class="form-control" placeholder="Enter your username" required autofocus />
                     </div>
 
                     <div class="form-group mb-3">
                         <label for="password">Password</label>
-                        <input asp-for="StudentPassword" type="password" id="password" class="form-control" placeholder="Enter your password" required />
+                        <input asp-for="UserPassword" type="password" id="UserPassword" class="form-control" placeholder="Enter your password" required />
                     </div>
 
                     <div class="form-group d-flex justify-content-between align-items-center mb-3">
