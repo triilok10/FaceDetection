@@ -12,8 +12,9 @@
 
     public enum UserLogin
     {
-        Student = 1,
-        Teacher = 2,
-        Collage = 3 
+        AdminLogin = 1,
+        Student = 2,
+        Teacher = 3,
+        Collage = 4
     }
 }
