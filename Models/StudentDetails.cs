@@ -29,7 +29,10 @@
         public string StudentPhone { get; set; }
         //StudentMail
         public string StudentMail { get; set; }
+        //StudentClass
 
         public string StudentClass { get; set; }
+        //IsStudentActive
+        public bool IsStudentActive { get; set; } = false;
     }
 }
