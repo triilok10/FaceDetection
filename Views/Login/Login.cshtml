@@ -333,7 +333,7 @@
         <div class="form-right" id="formContainer">
             <!-- Login Form -->
             <div id="loginForm">
-                <form class="form-detail" asp-controller="Login" asp-action="LoginSubmit" method="post" id="loginFormDetail" onsubmit="return js_ValidateLogin();">
+                <form class="form-detail" asp-controller="Login" asp-action="LoginAuth" method="post" id="loginFormDetail" onsubmit="return js_ValidateLogin();">
                     <h2>Login</h2>
                     <div class="form-row">
                         <label asp-for="UserCategory">User Category</label>
@@ -347,12 +347,12 @@
                     </div>
                     <div class="form-row">
                         <label asp-for="UserName">UserName</label>
-                        <input type="text" asp-for="UserName" id="LoginUserName" class="input-text" placeholder="Username">
+                        <input type="text" asp-for="UserName" id="UserName" class="input-text" placeholder="UserName">
                         <span id="username-errorr" style="color: red; display: none;">Only letters, numbers, and underscores are allowed.</span>
                     </div>
                     <div class="form-row">
                         <label asp-for="UserPassword">Password</label>
-                        <input type="password" asp-for="UserPassword" id="LoginPassword" class="input-text" placeholder="Password">
+                        <input type="password" asp-for="UserPassword" id="UserPassword" class="input-text" placeholder="Password">
                     </div>
                     <div class="form-row-last">
                         <input type="submit" name="login" class="form-login" value="Login" id="login">
@@ -375,33 +375,30 @@
 
 
     function js_ValidateLogin() {
-        var username = $("#LoginUserName").val().trim();
-        var password = $("#LoginPassword").val().trim();
 
-        var firstInvalidField = null;
+        debugger;
+        var username = $("#UserName").val().trim();
+        var password = $("#UserPassword").val().trim();
+
         if (!username) {
-            $("#LoginUserName").addClass("border-danger");
+            $("#UserName").addClass("border-danger");
             toastr.error("Please enter the Username");
-            if (!firstInvalidField) firstInvalidField = $("#LoginUserName");
+            return false;
         } else {
-            $("#LoginUserName").removeClass("border-danger");
+            $("#UserName").removeClass("border-danger");
         }
 
         if (!password) {
-            $("#LoginPassword").addClass("border-danger");
+            $("#UserPassword").addClass("border-danger");
             toastr.error("Please enter the Password");
-            if (!firstInvalidField) firstInvalidField = $("#LoginPassword");
-
+            return false;
 
         } else {
-            $("#LoginPassword").removeClass("border-danger");
+            $("#UserPassword").removeClass("border-danger");
         }
 
-        if (firstInvalidField) {
-            firstInvalidField[0].scrollIntoView({ behavior: "smooth", block: "center" });
-        }
+        return true;
 
-        return !firstInvalidField;
     }
 
 

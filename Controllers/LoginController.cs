@@ -57,6 +57,12 @@ namespace FaceDetection.Controllers
                 StringContent con = new StringContent(Json, Encoding.UTF8, "application/json");
 
                 HttpResponseMessage apiResponse = await _httpClient.PostAsync(apiUrl, con);
+                if (apiResponse.IsSuccessStatusCode)
+                {
+
+                }
+
+
             }
             catch (Exception ex)
             {
