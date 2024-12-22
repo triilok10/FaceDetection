@@ -1,6 +1,7 @@
 ﻿using FaceDetection.AppCode;
 using FaceDetection.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Globalization;
 using System.Text;
 using System.Text.Json;
@@ -38,7 +39,18 @@ namespace FaceDetection.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            return View();
+            var model = new LoginCategory();
+
+
+            ViewBag.UserCategories = new SelectList(Enum.GetValues(typeof(UserLogin))
+                .Cast<UserLogin>()
+                .Select(e => new
+                {
+                    Value = (int)e,
+                    Text = e.ToString()
+                }), "Value", "Text");
+
+            return View(model);
         }
 
         #endregion

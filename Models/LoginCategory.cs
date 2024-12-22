@@ -8,6 +8,7 @@
         public string UserPassword { get; set; }
         //UserCategory
         public UserLogin UserCategory { get; set; }
+        public string UserCategoryString { get; set; }
     }
 
     public enum UserLogin
@@ -15,6 +16,6 @@
         AdminLogin = 1,
         Student = 2,
         Teacher = 3,
-        Collage = 4
+        College = 4
     }
 }

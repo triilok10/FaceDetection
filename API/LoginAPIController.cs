@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using System.Reflection;
 
 namespace FaceDetection.API
 {
@@ -22,17 +23,21 @@ namespace FaceDetection.API
         {
             bool res = false;
             string message = string.Empty;
+
+            int userCategoryValue = (int)Enum.Parse(typeof(UserLogin), pLoginCategory.UserCategoryString);
+
+
             try
             {
                 using (SqlConnection con = new SqlConnection())
                 {
                     con.Open();
-                    SqlCommand cmd = new SqlCommand("", con);
+                    SqlCommand cmd = new SqlCommand("usp_UserCategoryLogin", con);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("", 1);
-                    cmd.Parameters.AddWithValue("", pLoginCategory.UserCategory);
-                    cmd.Parameters.AddWithValue("", pLoginCategory.UserName);
-                    cmd.Parameters.AddWithValue("", pLoginCategory.UserPassword);
+                    cmd.Parameters.AddWithValue("@Mode", 1);
+                    cmd.Parameters.AddWithValue("@UserCategory", userCategoryValue);
+                    cmd.Parameters.AddWithValue("@UserName", pLoginCategory.UserName);
+                    cmd.Parameters.AddWithValue("@UserPassword", pLoginCategory.UserPassword);
 
                     using (SqlDataReader rdr = cmd.ExecuteReader())
                     {

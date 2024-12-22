@@ -337,12 +337,9 @@
                     <h2>Login</h2>
                     <div class="form-row">
                         <label asp-for="UserCategory">User Category</label>
-                        <select asp-for="UserCategory" id="UserCategory">
-                            <option value="0">Select UserCategory</option>
-                            @foreach (var item in Enum.GetValues(typeof(FaceDetection.Models.UserLogin)))
-                            {
-                                <option class="option" value="@((int)item)" selected>@item</option>
-                            }
+
+                        <select asp-for="UserCategoryString" asp-items="@ViewBag.UserCategories" id="UserCategory">
+                            <option value="">Select User Category</option>
                         </select>
                     </div>
                     <div class="form-row">
