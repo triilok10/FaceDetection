@@ -376,9 +376,20 @@
 
     function js_ValidateLogin() {
 
-        debugger;
+
         var username = $("#UserName").val().trim();
         var password = $("#UserPassword").val().trim();
+        var userCategory = $("#UserCategory").val();
+
+        debugger;
+
+         if(userCategory <=0 || userCategory == ""){
+             $("#UserCategory").addClass("border-danger");
+            toastr.error("Please select the User Category.");
+            return false;
+         } else {
+            $("#UserCategory").removeClass("border-danger");
+        }
 
         if (!username) {
             $("#UserName").addClass("border-danger");
@@ -396,6 +407,8 @@
         } else {
             $("#UserPassword").removeClass("border-danger");
         }
+
+
 
         return true;
 
