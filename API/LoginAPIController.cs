@@ -41,7 +41,10 @@ namespace FaceDetection.API
 
                     using (SqlDataReader rdr = cmd.ExecuteReader())
                     {
-                        while (rdr.Read()) { }
+                        while (rdr.Read()) 
+                        { 
+                        
+                        }
 
                     }
                 }
