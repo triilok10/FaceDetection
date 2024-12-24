@@ -26,6 +26,7 @@ namespace FaceDetection.API
 
             int userCategoryValue = (int)Enum.Parse(typeof(UserLogin), pLoginCategory.UserCategoryString);
 
+            LoginCategory obj = new LoginCategory();
 
             try
             {
@@ -41,9 +42,14 @@ namespace FaceDetection.API
 
                     using (SqlDataReader rdr = cmd.ExecuteReader())
                     {
-                        while (rdr.Read()) 
-                        { 
-                        
+                        while (rdr.Read())
+                        {
+                            obj.AdminLoginID = Convert.ToInt32(rdr["AdminLoginID"]);
+                            obj.AdminLoginCode = Convert.ToString(rdr["AdminLoginCode"]);
+                            obj.UserName = Convert.ToString(rdr["UserName"]);
+                            obj.UserPassword = Convert.ToString(rdr["Password"]);
+                            obj.IsSystemUser = Convert.ToBoolean(rdr["IsSystemUser"]);
+                            obj.UserCategoryString = Convert.ToString(userCategoryValue);
                         }
 
                     }
