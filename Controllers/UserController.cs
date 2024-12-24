@@ -32,7 +32,8 @@ namespace FaceDetection.Controllers
         {
             int? UserId = _clsSession.GetInt32("UserID");
             string Username = _clsSession.GetString("UserName");
-            if (string.IsNullOrEmpty(Username) || UserId == null)
+            string LoginType = _clsSession.GetString("LoginType");
+            if (string.IsNullOrEmpty(Username) || UserId == null || string.IsNullOrWhiteSpace(LoginType))
             {
                 _clsSession.SetString("LoginAuth", "Auth");
                 context.Result = new RedirectToActionResult("Login", "Login", null);

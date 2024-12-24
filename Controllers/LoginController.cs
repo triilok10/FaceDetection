@@ -75,7 +75,7 @@ namespace FaceDetection.Controllers
                     dynamic resBody = await apiResponse.Content.ReadAsStringAsync();
                     LoginCategory obj = JsonConvert.DeserializeObject<LoginCategory>(resBody);
 
-                    if (obj.IsSuccess == false)
+                    if (obj.IsSuccess == true)
                     {
                         var UserID = (int)obj.AdminLoginID;
                         string Username = obj.UserName;
