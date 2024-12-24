@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace FaceDetection.Controllers
 {
+    [ServiceFilter(typeof(SessionAdmin))]
     public class UserController : Controller
     {
         public IActionResult Index()

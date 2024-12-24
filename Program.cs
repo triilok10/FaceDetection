@@ -1,4 +1,5 @@
 using FaceDetection.AppCode;
+using FaceDetection.Controllers;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped<SessionAdmin>();
 builder.Services.AddScoped<IClsSession, ClsSession>();
 
 
