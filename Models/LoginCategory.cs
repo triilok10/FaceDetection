@@ -16,6 +16,7 @@
         public string? AdminLoginCode { get; set; }
         //AdminLoginID
         public int? AdminLoginID { get; set; }
+        public bool? IsSuccess { get; set; }
     }
 
     public enum UserLogin

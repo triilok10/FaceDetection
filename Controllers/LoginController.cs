@@ -2,6 +2,7 @@
 using FaceDetection.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 using System.Globalization;
 using System.Text;
 using System.Text.Json;
@@ -65,23 +66,40 @@ namespace FaceDetection.Controllers
             try
             {
                 string apiUrl = baseUrl + "api/LoginAPI/LoginAuth";
-                string Json = JsonSerializer.Serialize(pLoginCategory);
+                string Json = JsonConvert.SerializeObject(pLoginCategory);
                 StringContent con = new StringContent(Json, Encoding.UTF8, "application/json");
 
                 HttpResponseMessage apiResponse = await _httpClient.PostAsync(apiUrl, con);
                 if (apiResponse.IsSuccessStatusCode)
                 {
+                    dynamic resBody = await apiResponse.Content.ReadAsStringAsync();
+                    LoginCategory obj = JsonConvert.DeserializeObject<LoginCategory>(resBody);
 
+                    if (obj.IsSuccess == false)
+                    {
+                        var UserID = (int)obj.AdminLoginID;
+                        string Username = obj.UserName;
+                        string LoginType = obj.UserCategoryString;
+
+                        _clsSession.SetInt32("UserID", UserID);
+                        _clsSession.SetString("UserName", Username);
+                        _clsSession.SetString("LoginType", LoginType);
+
+                        return RedirectToAction("UserHome", "User");
+                    }
+                    else
+                    {
+                        return RedirectToAction("UserHome", "User");
+                    }
                 }
-
-
             }
             catch (Exception ex)
             {
-
+                res = false;
+                message = ex.Message;
             }
 
-            return RedirectToAction("", "");
+            return RedirectToAction("UserHome", "User");
         }
 
         #endregion

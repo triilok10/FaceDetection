@@ -30,10 +30,10 @@ namespace FaceDetection.API
 
             try
             {
-                using (SqlConnection con = new SqlConnection())
+                using (SqlConnection con = new SqlConnection(_connectionString))
                 {
                     con.Open();
-                    SqlCommand cmd = new SqlCommand("usp_UserCategoryLogin", con);
+                    SqlCommand cmd = new SqlCommand("usp_Login", con);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@Mode", 1);
                     cmd.Parameters.AddWithValue("@UserCategory", userCategoryValue);
@@ -50,6 +50,7 @@ namespace FaceDetection.API
                             obj.UserPassword = Convert.ToString(rdr["Password"]);
                             obj.IsSystemUser = Convert.ToBoolean(rdr["IsSystemUser"]);
                             obj.UserCategoryString = Convert.ToString(userCategoryValue);
+                            obj.IsSuccess = true;
                         }
 
                     }
@@ -59,9 +60,10 @@ namespace FaceDetection.API
             {
                 message = ex.Message;
                 res = false;
+                obj.IsSuccess = res;
             }
 
-            return Ok(new { });
+            return Ok(obj);
         }
 
     }
