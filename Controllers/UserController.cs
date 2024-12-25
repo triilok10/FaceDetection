@@ -13,7 +13,19 @@ namespace FaceDetection.Controllers
         }
 
         [HttpGet]
-        public IActionResult UserHome()
+        public IActionResult UserAdmin()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult UserTeacher()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult UserStudent()
         {
             return View();
         }
