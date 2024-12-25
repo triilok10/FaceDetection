@@ -85,11 +85,26 @@ namespace FaceDetection.Controllers
                         _clsSession.SetString("UserName", Username);
                         _clsSession.SetString("LoginType", LoginType);
 
-                        return RedirectToAction("UserHome", "User");
+                        if (UserID == 1)
+                        {
+                            return RedirectToAction("UserAdmin", "User");
+                        }
+                        if (UserID == 2)
+                        {
+                            return RedirectToAction("UserCollege", "User");
+                        }
+                        if (UserID == 3)
+                        {
+                            return RedirectToAction("UserTeacher", "User");
+                        }
+                        if (UserID == 4)
+                        {
+                            return RedirectToAction("UserStudent", "User");
+                        }
                     }
                     else
                     {
-                        return RedirectToAction("UserHome", "User");
+                        return RedirectToAction("UserStudent", "User");
                     }
                 }
             }

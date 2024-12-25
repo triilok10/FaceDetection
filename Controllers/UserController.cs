@@ -19,6 +19,12 @@ namespace FaceDetection.Controllers
         }
 
         [HttpGet]
+        public IActionResult UserCollege()
+        {
+            return View();
+        }
+
+        [HttpGet]
         public IActionResult UserTeacher()
         {
             return View();

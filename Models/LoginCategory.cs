@@ -22,8 +22,8 @@
     public enum UserLogin
     {
         AdminLogin = 1,
-        Student = 2,
+        College = 2,
         Teacher = 3,
-        College = 4
+        Student = 4
     }
 }
