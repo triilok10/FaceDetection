@@ -22,5 +22,10 @@ namespace FaceDetection.Controllers
         {
             return View();
         }
+
+        public PartialViewResult College()
+        {
+            return PartialView();
+        }
     }
 }

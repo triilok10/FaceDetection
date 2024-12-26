@@ -71,7 +71,7 @@
 
 <div class="header-container">
     <h2 class="bg-primary text-white py-2 rounded mb-0">College Info</h2>
-    <button class="btn btn-success" id="addCollegeButton">Add College</button>
+    <button class="btn btn-success" id="addCollegeButton" onclick="js_AddCollage();">Add College</button>
 </div>
 
 <div class="table-responsive">
@@ -158,6 +158,9 @@
     </table>
 </div>
 
+<div id="idAddCollegeName">
+</div>
+
 <script>
     document.getElementById('searchButton').addEventListener('click', function () {
         var searchCode = document.getElementById('collegeCodeSearch').value.toLowerCase();
@@ -175,5 +178,16 @@
             }
         });
     });
+
+    function js_AddCollage(){
+
+        $.ajax({
+            url:"@Url.Action("College", "UserAdmin")",
+            type:"GET",
+            success:function(res){
+                $("#idAddCollegeName").html(res);
+            }
+        })
+    }
 </script>
 

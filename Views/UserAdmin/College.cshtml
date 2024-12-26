@@ -1,0 +1,121 @@
+﻿
+<style>
+    /* Custom CSS */
+    .mandatory::after {
+        content: "*";
+        color: red;
+        margin-left: 5px;
+    }
+
+    .form-container {
+        background-color: #f2f2f2;
+        padding: 20px;
+        border-radius: 5px;
+        margin-top: 20px;
+    }
+
+    .status-label {
+        margin-right: 10px;
+    }
+
+    .close-btn {
+        float: right;
+        margin-top: -10px; 
+    }
+</style>
+
+
+<div class="container form-container">
+    <div class="d-flex justify-content-between align-items-center">
+        <h2>College Registration Form</h2>
+        <button type="button" class="btn-close close-btn" aria-label="Close" onclick="window.close();"></button>
+    </div>
+
+    <form>
+        <div class="mb-3 row">
+            <label for="collegeName" class="col-sm-4 col-form-label mandatory">College Name</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="collegeName" required>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="collegeLocation" class="col-sm-4 col-form-label mandatory">College Location</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="collegeLocation" required>
+            </div>
+        </div>
+
+        <!-- College State Dropdown -->
+        <div class="mb-3 row">
+            <label for="collegeState" class="col-sm-4 col-form-label mandatory">College State</label>
+            <div class="col-sm-8">
+                <select class="form-select" id="collegeState" required>
+                    <option value="" disabled selected>Select State</option>
+                    <option value="state1">State 1</option>
+                    <option value="state2">State 2</option>
+                    <option value="state3">State 3</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- College Country Dropdown -->
+        <div class="mb-3 row">
+            <label for="collegeCountry" class="col-sm-4 col-form-label mandatory">College Country</label>
+            <div class="col-sm-8">
+                <select class="form-select" id="collegeCountry" required>
+                    <option value="" disabled selected>Select Country</option>
+                    <option value="country1">Country 1</option>
+                    <option value="country2">Country 2</option>
+                    <option value="country3">Country 3</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- College Admin Name -->
+        <div class="mb-3 row">
+            <label for="adminName" class="col-sm-4 col-form-label mandatory">College Admin Name</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="adminName" required>
+            </div>
+        </div>
+
+        <!-- College Email -->
+        <div class="mb-3 row">
+            <label for="collegeEmail" class="col-sm-4 col-form-label mandatory">College Email</label>
+            <div class="col-sm-8">
+                <input type="email" class="form-control" id="collegeEmail" required>
+            </div>
+        </div>
+
+        <!-- College Phone Number -->
+        <div class="mb-3 row">
+            <label for="collegePhone" class="col-sm-4 col-form-label mandatory">College Phone Number</label>
+            <div class="col-sm-8">
+                <input type='tel' class='form-control' id='collegePhone' required pattern='[0-9]{10}'>
+                <small>Format: 1234567890</small>
+            </div>
+        </div>
+
+        <!-- College Website -->
+        <div class='mb-3 row'>
+            <label for='collegeWebsite' class='col-sm-4 col-form-label mandatory'>College Website</label>
+            <div class='col-sm-8'>
+                <input type='url' class='form-control' id='collegeWebsite' required placeholder='https://example.com'>
+            </div>
+        </div>
+
+        <!-- College Status Field -->
+        <fieldset class='mb-3 row'>
+            <label for='CollegeStatus' class='col-sm-4 col-form-label mandatory'>College Status</label>
+            <div class='col-sm-8'>
+                <input type='checkbox' id='activeStatus' name='status' value='active' checked class="me-2" />
+            </div>
+        </fieldset>
+
+        <!-- Submit Button -->
+        <button type='submit' class='btn btn-primary'>Submit</button>
+    </form>
+</div>
+
+
+
