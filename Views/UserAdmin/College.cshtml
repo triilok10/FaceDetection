@@ -1,4 +1,4 @@
-﻿
+﻿@model FaceDetection.Models.CollegeDetails;
 <style>
     /* Custom CSS */
     .mandatory::after {
@@ -20,7 +20,7 @@
 
     .close-btn {
         float: right;
-        margin-top: -10px; 
+        margin-top: -10px;
     }
 </style>
 
@@ -31,11 +31,11 @@
         <button type="button" class="btn-close close-btn" aria-label="Close" onclick="js_CloseAddCollege()"></button>
     </div>
 
-    <form>
+    <form asp-controller="UserAdmin" asp-action="CollegeAdd" method="post" onsubmit="return js_ValidateCollageDetails();">
         <div class="mb-3 row">
             <label for="collegeName" class="col-sm-4 col-form-label mandatory">College Name</label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" id="collegeName" required>
+                <input asp-for="CollageName" type="text" class="form-control" id="collegeName" value="" required>
             </div>
         </div>
         <div class="mb-3 row">
@@ -119,3 +119,12 @@
 
 
 
+<script type="text/javascript">
+
+    function js_ValidateCollageDetails()
+    {
+
+    }
+
+
+</script>

@@ -1,6 +1,6 @@
 ﻿namespace FaceDetection.Models
 {
-    public class CollageDetails
+    public class CollegeDetails
     {
         //CollageID
         public int CollageID { get; set; }
