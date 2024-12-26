@@ -22,36 +22,45 @@
     }
 
     #searchButton {
-        width: 100px; 
+        width: 100px;
     }
 
-</style>
 
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        padding: 10px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .add-college-button {
+        margin-left: auto;
+    }
+</style>
 
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            
             <div class="p-4 bg-light rounded shadow">
                 <h3 class="text-center mb-3">Search College</h3>
 
-                
                 <div class="row mb-3">
-                    
                     <div class="col-md-6">
                         <input type="text" id="collegeCodeSearch" class="form-control" placeholder="Enter College Code" />
                     </div>
 
-                    
                     <div class="col-md-6">
                         <input type="text" id="collegeNameSearch" class="form-control" placeholder="Enter College Name" />
                     </div>
                 </div>
 
-               
                 <div class="row">
                     <div class="col-md-12 text-end">
-                       
                         <button id="searchButton" class="btn btn-primary">Search</button>
                     </div>
                 </div>
@@ -60,8 +69,9 @@
     </div>
 </div>
 
-<div class="text-center mt-5 mb-4">
-    <h2 class="bg-primary text-white py-2 rounded">College Info</h2>
+<div class="header-container">
+    <h2 class="bg-primary text-white py-2 rounded mb-0">College Info</h2>
+    <button class="btn btn-success" id="addCollegeButton">Add College</button>
 </div>
 
 <div class="table-responsive">
@@ -69,6 +79,7 @@
         <thead class="thead-dark">
             <tr>
                 <th>College Name</th>
+                <th>College Code</th>
                 <th>Location</th>
                 <th>Created On</th>
                 <th>Admin Name</th>
@@ -77,10 +88,10 @@
             </tr>
         </thead>
         <tbody id="collegeList">
-           
             <tr>
                 <td>Oxford University</td>
                 <td>Oxford, UK</td>
+                <td>Clg</td>
                 <td>01/01/1167</td>
                 <td>John Doe</td>
                 <td>Active</td>
@@ -92,6 +103,7 @@
             </tr>
             <tr>
                 <td>Harvard University</td>
+                <td>Cambridge, MA, USA</td>
                 <td>Cambridge, MA, USA</td>
                 <td>01/01/1636</td>
                 <td>Jane Smith</td>
@@ -105,6 +117,7 @@
             <tr>
                 <td>Stanford University</td>
                 <td>Stanford, CA, USA</td>
+                <td>Stanford, CA, USA</td>
                 <td>01/01/1885</td>
                 <td>Mark Brown</td>
                 <td>Inactive</td>
@@ -116,6 +129,7 @@
             </tr>
             <tr>
                 <td>MIT</td>
+                <td>Cambridge, MA, USA</td>
                 <td>Cambridge, MA, USA</td>
                 <td>01/01/1861</td>
                 <td>Emily White</td>
@@ -129,6 +143,7 @@
             <tr>
                 <td>Cambridge University</td>
                 <td>Cambridge, UK</td>
+                <td>Cambridge, UK</td>
                 <td>01/01/1209</td>
                 <td>Sarah Black</td>
                 <td>Active</td>
@@ -139,11 +154,11 @@
                 </td>
             </tr>
         </tbody>
+
     </table>
 </div>
 
 <script>
-   
     document.getElementById('searchButton').addEventListener('click', function () {
         var searchCode = document.getElementById('collegeCodeSearch').value.toLowerCase();
         var searchName = document.getElementById('collegeNameSearch').value.toLowerCase();
@@ -151,14 +166,14 @@
 
         rows.forEach(function (row) {
             var collegeName = row.cells[0].textContent.toLowerCase();
-            var collegeCode = row.cells[0].textContent.toLowerCase();  
+            var collegeCode = row.cells[1].Wor.toLowerCase();
 
-            
             if ((searchCode && collegeCode.includes(searchCode)) || (searchName && collegeName.includes(searchName))) {
-                row.style.display = '';  
+                row.style.display = '';
             } else {
                 row.style.display = 'none';
             }
         });
     });
 </script>
+
