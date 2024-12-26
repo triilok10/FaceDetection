@@ -43,7 +43,7 @@
     }
 </style>
 
-<div class="container mt-5">
+<div class="container mt-5" id="displayNone">
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="p-4 bg-light rounded shadow">
@@ -69,12 +69,12 @@
     </div>
 </div>
 
-<div class="header-container">
+<div class="header-container" id="displayNone1">
     <h2 class="bg-primary text-white py-2 rounded mb-0">College Info</h2>
     <button class="btn btn-success" id="addCollegeButton" onclick="js_AddCollage();">Add College</button>
 </div>
 
-<div class="table-responsive">
+<div class="table-responsive" id="displayNone2">
     <table class="table table-bordered">
         <thead class="thead-dark">
             <tr>
@@ -185,9 +185,21 @@
             url:"@Url.Action("College", "UserAdmin")",
             type:"GET",
             success:function(res){
+                $("#displayNone").hide();
+                $("#displayNone1").hide();
+                $("#displayNone2").hide();
                 $("#idAddCollegeName").html(res);
             }
         })
+
+
+    }
+
+    function js_CloseAddCollege(){
+            $("#displayNone").show();
+            $("#displayNone1").show();
+            $("#displayNone2").show();
+            $("#displanyAddCollege").hide();
     }
 </script>
 
