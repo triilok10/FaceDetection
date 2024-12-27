@@ -26,6 +26,11 @@
         public string CollegeWebsite { get; set; }
         //IsCollegeActive
         public bool IsCollegeActive { get; set; } = false; //Default False
-
+        public string CountryName { get; set; }
+        public int CountryID { get; set; }
+        public string StateName { get; set; }
+        public int StateID { get; set; }
+        public bool Status { get; set; }
+        public string ErrMsg { get; set; }
     }
 }

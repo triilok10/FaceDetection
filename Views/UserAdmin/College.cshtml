@@ -54,12 +54,7 @@
         <div class="mb-3 row">
             <label asp-for="CollegeState" class="col-sm-4 col-form-label mandatory">State</label>
             <div class="col-sm-8">
-                <select class="form-select" id="CollegeState" asp-for="CollegeState">
-                    <option value="" disabled selected>Select State</option>
-                    <option value="state1">State 1</option>
-                    <option value="state2">State 2</option>
-                    <option value="state3">State 3</option>
-                </select>
+                @Html.DropDownList("StateId", new SelectList(ViewBag.StateList, "StateID", "StateName"),"Select a state",new { @class = "form-control", id = "stateDropdown" })
             </div>
         </div>
 
@@ -67,12 +62,7 @@
         <div class="mb-3 row">
             <label asp-for="CollegeCountry" class="col-sm-4 col-form-label mandatory">Country</label>
             <div class="col-sm-8">
-                <select class="form-select" id="CollegeCountry" asp-for="CollegeCountry">
-                    <option value="" disabled selected>Select Country</option>
-                    <option value="country1">Country 1</option>
-                    <option value="country2">Country 2</option>
-                    <option value="country3">Country 3</option>
-                </select>
+                @Html.DropDownList("CountryId", new SelectList(ViewBag.CountryList, "CountryID", "CountryName"),"Select a country", new { @class = "form-control", id = "countryDropdown" })
             </div>
         </div>
         <!-- College PinCode -->
