@@ -136,13 +136,14 @@
         var collegeCity= $("#CollegeCity").val();
         var collegeState= $("#CollegeState").val();
         var collegeCountry= $("#CollegeCountry").val();
+        var collegePinCode= $("#CollegePinCode").val();
         var collegeAdmin= $("#CollegeAdmin").val();
         var collegeMail= $("#CollegeMail").val();
         var collegePhone= $("#CollegePhone").val();
         var collegeWebsite= $("#CollegeWebsite").val();
-        var collegePhone= $("#IsCollegeActive").is(":checked");
+        var collegeStatus= $("#IsCollegeActive").is(":checked");
 
-
+        //College Name
         if(!collegeName){
             $("#CollegeName").addClass("border-danger");
             toastr.error("Please enter the College Name");
@@ -152,6 +153,8 @@
              $("#CollegeName").removeClass("border-danger");
         }
 
+
+        //College Location City
         if(!collegeCity){
             $("#CollegeCity").addClass("border-danger");
             toastr.error("Please enter the College City");
@@ -161,6 +164,7 @@
              $("#CollegeCity").removeClass("border-danger");
         }
 
+        //College State
         if(!collegeState){
             $("#CollegeState").addClass("border-danger");
             toastr.error("Please select the State");
@@ -171,6 +175,7 @@
         }
 
 
+        //College Country
         if(!collegeCountry){
             $("#CollegeCountry").addClass("border-danger");
             toastr.error("Please enter the College Country");
@@ -180,6 +185,17 @@
              $("#CollegeCountry").removeClass("border-danger");
         }
 
+        //College PinCode
+           if(!collegePinCode){
+            $("#CollegePinCode").addClass("border-danger");
+            toastr.error("Please enter the College Country");
+            return false;
+        }
+        else{
+             $("#CollegePinCode").removeClass("border-danger");
+        }
+
+        //College Admin
         if(!collegeAdmin){
             $("#CollegeAdmin").addClass("border-danger");
             toastr.error("Please enter the College Admin");
@@ -189,7 +205,7 @@
              $("#CollegeAdmin").removeClass("border-danger");
         }
 
-
+        //College Mail
         if(!collegeMail){
             $("#CollegeMail").addClass("border-danger");
             toastr.error("Please enter the College Mail");
@@ -200,6 +216,7 @@
         }
 
 
+        //College Phone
         if(!collegePhone){
             $("#CollegePhone").addClass("border-danger");
             toastr.error("Please enter the College Phone");
@@ -209,7 +226,7 @@
              $("#CollegePhone").removeClass("border-danger");
         }
 
-
+        //College Website
         if(!collegeWebsite){
             $("#CollegeWebsite").addClass("border-danger");
             toastr.error("Please enter the CollegeWebsite");
@@ -219,13 +236,14 @@
              $("#CollegeWebsite").removeClass("border-danger");
         }
 
-        if(!collegePhone){
-            $("#collegePhone").addClass("border-danger");
+        //College Status
+        if(!collegeStatus){
+            $("#IsCollegeActive").addClass("border-danger");
             toastr.error("Please enter the college Phone");
             return false;
         }
         else{
-             $("#college Phone").removeClass("border-danger");
+             $("#IsCollegeActive").removeClass("border-danger");
         }
 
     }
