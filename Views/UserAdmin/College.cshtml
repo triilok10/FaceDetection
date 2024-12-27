@@ -31,25 +31,25 @@
         <button type="button" class="btn-close close-btn" aria-label="Close" onclick="js_CloseAddCollege()"></button>
     </div>
 
-    <form asp-controller="UserAdmin" asp-action="CollegeAdd" method="post" onsubmit="return js_ValidateCollageDetails();">
+    <form asp-controller="UserAdmin" asp-action="CollegeAdd" method="post" onsubmit="return js_ValidateCollegeDetails();">
         <div class="mb-3 row">
-            <label for="collegeName" class="col-sm-4 col-form-label mandatory">College Name</label>
+            <label asp-for="CollegeName" class="col-sm-4 col-form-label mandatory">Name</label>
             <div class="col-sm-8">
-                <input asp-for="CollageName" type="text" class="form-control" id="collegeName" value="" required>
+                <input asp-for="CollegeName" type="text" class="form-control" id="CollegeName" required>
             </div>
         </div>
         <div class="mb-3 row">
-            <label for="collegeLocation" class="col-sm-4 col-form-label mandatory">College Location</label>
+            <label asp-for="CollegeCity" class="col-sm-4 col-form-label mandatory">City/Location</label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" id="collegeLocation" required>
+                <input asp-for="CollegeCity" type="text" class="form-control" id="CollegeCity" required>
             </div>
         </div>
 
         <!-- College State Dropdown -->
         <div class="mb-3 row">
-            <label for="collegeState" class="col-sm-4 col-form-label mandatory">College State</label>
+            <label asp-for="CollegeState" class="col-sm-4 col-form-label mandatory">State</label>
             <div class="col-sm-8">
-                <select class="form-select" id="collegeState" required>
+                <select class="form-select" id="CollegeState" asp-for="CollegeState" required>
                     <option value="" disabled selected>Select State</option>
                     <option value="state1">State 1</option>
                     <option value="state2">State 2</option>
@@ -60,9 +60,9 @@
 
         <!-- College Country Dropdown -->
         <div class="mb-3 row">
-            <label for="collegeCountry" class="col-sm-4 col-form-label mandatory">College Country</label>
+            <label asp-for="CollegeCountry" class="col-sm-4 col-form-label mandatory">Country</label>
             <div class="col-sm-8">
-                <select class="form-select" id="collegeCountry" required>
+                <select class="form-select" id="CollegeCountry" asp-for="CollegeCountry" required>
                     <option value="" disabled selected>Select Country</option>
                     <option value="country1">Country 1</option>
                     <option value="country2">Country 2</option>
@@ -70,45 +70,52 @@
                 </select>
             </div>
         </div>
+        <!-- College PinCode -->
+        <div class="mb-3 row">
+            <label asp-for="CollegePinCode" class="col-sm-4 col-form-label mandatory">Pin Code</label>
+            <div class="col-sm-8">
+                <input asp-for="CollegePinCode" type="text" class="form-control" id="CollegePinCode" required>
+            </div>
+        </div>
 
         <!-- College Admin Name -->
         <div class="mb-3 row">
-            <label for="adminName" class="col-sm-4 col-form-label mandatory">College Admin Name</label>
+            <label asp-for="CollegeAdmin" class="col-sm-4 col-form-label mandatory">Admin/Incharger Name</label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" id="adminName" required>
+                <input asp-for="CollegeAdmin" type="text" class="form-control" id="CollegeAdmin" required>
             </div>
         </div>
 
         <!-- College Email -->
         <div class="mb-3 row">
-            <label for="collegeEmail" class="col-sm-4 col-form-label mandatory">College Email</label>
+            <label asp-for="CollegeMail" class="col-sm-4 col-form-label mandatory">Offical Email</label>
             <div class="col-sm-8">
-                <input type="email" class="form-control" id="collegeEmail" required>
+                <input asp-for="CollegeMail" type="email" class="form-control" id="CollegeMail" required>
             </div>
         </div>
 
         <!-- College Phone Number -->
         <div class="mb-3 row">
-            <label for="collegePhone" class="col-sm-4 col-form-label mandatory">College Phone Number</label>
+            <label asp-for="CollegePhone" class="col-sm-4 col-form-label mandatory">Official Phone Number</label>
             <div class="col-sm-8">
-                <input type='tel' class='form-control' id='collegePhone' required pattern='[0-9]{10}'>
+                <input asp-for="CollegePhone" type='tel' class='form-control' id='CollegePhone' required pattern='[0-9]{10}'>
                 <small>Format: 1234567890</small>
             </div>
         </div>
 
         <!-- College Website -->
         <div class='mb-3 row'>
-            <label for='collegeWebsite' class='col-sm-4 col-form-label mandatory'>College Website</label>
+            <label asp-for="CollegeWebsite" class='col-sm-4 col-form-label mandatory'>College Website</label>
             <div class='col-sm-8'>
-                <input type='url' class='form-control' id='collegeWebsite' required placeholder='https://example.com'>
+                <input asp-for="CollegeWebsite" type='url' class='form-control' id='CollegeWebsite' required placeholder='https://example.com'>
             </div>
         </div>
 
         <!-- College Status Field -->
         <fieldset class='mb-3 row'>
-            <label for='CollegeStatus' class='col-sm-4 col-form-label mandatory'>College Status</label>
+            <label asp-for="IsCollegeActive" class='col-sm-4 col-form-label mandatory'>Status</label>
             <div class='col-sm-8'>
-                <input type='checkbox' id='activeStatus' name='status' value='active' checked class="me-2" />
+                <input asp-for="IsCollegeActive" type='checkbox' id='IsCollegeActive' value='' checked class="me-2" />
             </div>
         </fieldset>
 
@@ -121,8 +128,105 @@
 
 <script type="text/javascript">
 
-    function js_ValidateCollageDetails()
+    function js_ValidateCollegeDetails()
+
     {
+
+        var collegeName= $("#CollegeName").val();
+        var collegeCity= $("#CollegeCity").val();
+        var collegeState= $("#CollegeState").val();
+        var collegeCountry= $("#CollegeCountry").val();
+        var collegeAdmin= $("#CollegeAdmin").val();
+        var collegeMail= $("#CollegeMail").val();
+        var collegePhone= $("#CollegePhone").val();
+        var collegeWebsite= $("#CollegeWebsite").val();
+        var collegePhone= $("#IsCollegeActive").is(":checked");
+
+
+        if(!collegeName){
+            $("#CollegeName").addClass("border-danger");
+            toastr.error("Please enter the College Name");
+            return false;
+        }
+        else{
+             $("#CollegeName").removeClass("border-danger");
+        }
+
+        if(!collegeCity){
+            $("#CollegeCity").addClass("border-danger");
+            toastr.error("Please enter the College City");
+            return false;
+        }
+        else{
+             $("#CollegeCity").removeClass("border-danger");
+        }
+
+        if(!collegeState){
+            $("#CollegeState").addClass("border-danger");
+            toastr.error("Please select the State");
+            return false;
+        }
+        else{
+             $("#CollegeState").removeClass("border-danger");
+        }
+
+
+        if(!collegeCountry){
+            $("#CollegeCountry").addClass("border-danger");
+            toastr.error("Please enter the College Country");
+            return false;
+        }
+        else{
+             $("#CollegeCountry").removeClass("border-danger");
+        }
+
+        if(!collegeAdmin){
+            $("#CollegeAdmin").addClass("border-danger");
+            toastr.error("Please enter the College Admin");
+            return false;
+        }
+        else{
+             $("#CollegeAdmin").removeClass("border-danger");
+        }
+
+
+        if(!collegeMail){
+            $("#CollegeMail").addClass("border-danger");
+            toastr.error("Please enter the College Mail");
+            return false;
+        }
+        else{
+             $("#CollegeMail").removeClass("border-danger");
+        }
+
+
+        if(!collegePhone){
+            $("#CollegePhone").addClass("border-danger");
+            toastr.error("Please enter the College Phone");
+            return false;
+        }
+        else{
+             $("#CollegePhone").removeClass("border-danger");
+        }
+
+
+        if(!collegeWebsite){
+            $("#CollegeWebsite").addClass("border-danger");
+            toastr.error("Please enter the CollegeWebsite");
+            return false;
+        }
+        else{
+             $("#CollegeWebsite").removeClass("border-danger");
+        }
+
+        if(!collegePhone){
+            $("#collegePhone").addClass("border-danger");
+            toastr.error("Please enter the college Phone");
+            return false;
+        }
+        else{
+             $("#college Phone").removeClass("border-danger");
+        }
 
     }
 
