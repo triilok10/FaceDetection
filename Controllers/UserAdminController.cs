@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FaceDetection.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FaceDetection.Controllers
 {
@@ -26,6 +27,12 @@ namespace FaceDetection.Controllers
         public PartialViewResult College()
         {
             return PartialView();
+        }
+
+        [HttpPost]
+        public IActionResult CollegeAdd(CollegeDetails pCollegeDetails)
+        {
+            return View();
         }
     }
 }

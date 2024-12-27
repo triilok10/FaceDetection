@@ -22,6 +22,11 @@
         float: right;
         margin-top: -10px;
     }
+
+
+    .border-danger {
+        border-color: red !important;
+    }
 </style>
 
 
@@ -35,13 +40,13 @@
         <div class="mb-3 row">
             <label asp-for="CollegeName" class="col-sm-4 col-form-label mandatory">Name</label>
             <div class="col-sm-8">
-                <input asp-for="CollegeName" type="text" class="form-control" id="CollegeName" required>
+                <input asp-for="CollegeName" type="text" class="form-control" id="CollegeName">
             </div>
         </div>
         <div class="mb-3 row">
             <label asp-for="CollegeCity" class="col-sm-4 col-form-label mandatory">City/Location</label>
             <div class="col-sm-8">
-                <input asp-for="CollegeCity" type="text" class="form-control" id="CollegeCity" required>
+                <input asp-for="CollegeCity" type="text" class="form-control" id="CollegeCity">
             </div>
         </div>
 
@@ -49,7 +54,7 @@
         <div class="mb-3 row">
             <label asp-for="CollegeState" class="col-sm-4 col-form-label mandatory">State</label>
             <div class="col-sm-8">
-                <select class="form-select" id="CollegeState" asp-for="CollegeState" required>
+                <select class="form-select" id="CollegeState" asp-for="CollegeState">
                     <option value="" disabled selected>Select State</option>
                     <option value="state1">State 1</option>
                     <option value="state2">State 2</option>
@@ -62,7 +67,7 @@
         <div class="mb-3 row">
             <label asp-for="CollegeCountry" class="col-sm-4 col-form-label mandatory">Country</label>
             <div class="col-sm-8">
-                <select class="form-select" id="CollegeCountry" asp-for="CollegeCountry" required>
+                <select class="form-select" id="CollegeCountry" asp-for="CollegeCountry">
                     <option value="" disabled selected>Select Country</option>
                     <option value="country1">Country 1</option>
                     <option value="country2">Country 2</option>
@@ -74,7 +79,7 @@
         <div class="mb-3 row">
             <label asp-for="CollegePinCode" class="col-sm-4 col-form-label mandatory">Pin Code</label>
             <div class="col-sm-8">
-                <input asp-for="CollegePinCode" type="text" class="form-control" id="CollegePinCode" required>
+                <input asp-for="CollegePinCode" type="text" class="form-control" id="CollegePinCode">
             </div>
         </div>
 
@@ -82,7 +87,7 @@
         <div class="mb-3 row">
             <label asp-for="CollegeAdmin" class="col-sm-4 col-form-label mandatory">Admin/Incharger Name</label>
             <div class="col-sm-8">
-                <input asp-for="CollegeAdmin" type="text" class="form-control" id="CollegeAdmin" required>
+                <input asp-for="CollegeAdmin" type="text" class="form-control" id="CollegeAdmin">
             </div>
         </div>
 
@@ -90,7 +95,7 @@
         <div class="mb-3 row">
             <label asp-for="CollegeMail" class="col-sm-4 col-form-label mandatory">Offical Email</label>
             <div class="col-sm-8">
-                <input asp-for="CollegeMail" type="email" class="form-control" id="CollegeMail" required>
+                <input asp-for="CollegeMail" type="email" class="form-control" id="CollegeMail">
             </div>
         </div>
 
@@ -98,7 +103,7 @@
         <div class="mb-3 row">
             <label asp-for="CollegePhone" class="col-sm-4 col-form-label mandatory">Official Phone Number</label>
             <div class="col-sm-8">
-                <input asp-for="CollegePhone" type='tel' class='form-control' id='CollegePhone' required pattern='[0-9]{10}'>
+                <input asp-for="CollegePhone" type='tel' class='form-control' id='CollegePhone' pattern='[0-9]{10}'>
                 <small>Format: 1234567890</small>
             </div>
         </div>
@@ -107,7 +112,7 @@
         <div class='mb-3 row'>
             <label asp-for="CollegeWebsite" class='col-sm-4 col-form-label mandatory'>College Website</label>
             <div class='col-sm-8'>
-                <input asp-for="CollegeWebsite" type='url' class='form-control' id='CollegeWebsite' required placeholder='https://example.com'>
+                <input asp-for="CollegeWebsite" type='url' class='form-control' id='CollegeWebsite' placeholder='https://example.com'>
             </div>
         </div>
 
@@ -128,125 +133,118 @@
 
 <script type="text/javascript">
 
+
     function js_ValidateCollegeDetails()
-
-    {
-
-        var collegeName= $("#CollegeName").val();
-        var collegeCity= $("#CollegeCity").val();
-        var collegeState= $("#CollegeState").val();
-        var collegeCountry= $("#CollegeCountry").val();
-        var collegePinCode= $("#CollegePinCode").val();
-        var collegeAdmin= $("#CollegeAdmin").val();
-        var collegeMail= $("#CollegeMail").val();
-        var collegePhone= $("#CollegePhone").val();
-        var collegeWebsite= $("#CollegeWebsite").val();
-        var collegeStatus= $("#IsCollegeActive").is(":checked");
-
-        //College Name
-        if(!collegeName){
-            $("#CollegeName").addClass("border-danger");
-            toastr.error("Please enter the College Name");
-            return false;
-        }
-        else{
-             $("#CollegeName").removeClass("border-danger");
-        }
+       {
+           debugger;
+           var collegeName= $("#CollegeName").val();
+           var collegeCity= $("#CollegeCity").val();
+           var collegeState= $("#CollegeState").val();
+           var collegeCountry= $("#CollegeCountry").val();
+           var collegePinCode= $("#CollegePinCode").val();
+           var collegeAdmin= $("#CollegeAdmin").val();
+           var collegeMail= $("#CollegeMail").val();
+           var collegePhone= $("#CollegePhone").val();
+           var collegeWebsite= $("#CollegeWebsite").val();
 
 
-        //College Location City
-        if(!collegeCity){
-            $("#CollegeCity").addClass("border-danger");
-            toastr.error("Please enter the College City");
-            return false;
-        }
-        else{
-             $("#CollegeCity").removeClass("border-danger");
-        }
 
-        //College State
-        if(!collegeState){
-            $("#CollegeState").addClass("border-danger");
-            toastr.error("Please select the State");
-            return false;
-        }
-        else{
-             $("#CollegeState").removeClass("border-danger");
-        }
+           debugger;
+           //College Name
+           if(!collegeName){
+               $("#CollegeName").addClass("border-danger");
+               toastr.error("Please enter the College Name");
+               return false;
+           }
+           else{
+                $("#CollegeName").removeClass("border-danger");
+           }
 
 
-        //College Country
-        if(!collegeCountry){
-            $("#CollegeCountry").addClass("border-danger");
-            toastr.error("Please enter the College Country");
-            return false;
-        }
-        else{
-             $("#CollegeCountry").removeClass("border-danger");
-        }
+           //College Location City
+           if(!collegeCity){
+               $("#CollegeCity").addClass("border-danger");
+               toastr.error("Please enter the College City");
+               return false;
+           }
+           else{
+                $("#CollegeCity").removeClass("border-danger");
+           }
 
-        //College PinCode
-           if(!collegePinCode){
-            $("#CollegePinCode").addClass("border-danger");
-            toastr.error("Please enter the College Country");
-            return false;
-        }
-        else{
-             $("#CollegePinCode").removeClass("border-danger");
-        }
-
-        //College Admin
-        if(!collegeAdmin){
-            $("#CollegeAdmin").addClass("border-danger");
-            toastr.error("Please enter the College Admin");
-            return false;
-        }
-        else{
-             $("#CollegeAdmin").removeClass("border-danger");
-        }
-
-        //College Mail
-        if(!collegeMail){
-            $("#CollegeMail").addClass("border-danger");
-            toastr.error("Please enter the College Mail");
-            return false;
-        }
-        else{
-             $("#CollegeMail").removeClass("border-danger");
-        }
+           //College State
+           if(!collegeState){
+               $("#CollegeState").addClass("border-danger");
+               toastr.error("Please select the State");
+               return false;
+           }
+           else{
+                $("#CollegeState").removeClass("border-danger");
+           }
 
 
-        //College Phone
-        if(!collegePhone){
-            $("#CollegePhone").addClass("border-danger");
-            toastr.error("Please enter the College Phone");
-            return false;
-        }
-        else{
-             $("#CollegePhone").removeClass("border-danger");
-        }
+           //College Country
+           if(!collegeCountry){
+               $("#CollegeCountry").addClass("border-danger");
+               toastr.error("Please select the College Country");
+               return false;
+           }
+           else{
+                $("#CollegeCountry").removeClass("border-danger");
+           }
 
-        //College Website
-        if(!collegeWebsite){
-            $("#CollegeWebsite").addClass("border-danger");
-            toastr.error("Please enter the CollegeWebsite");
-            return false;
-        }
-        else{
-             $("#CollegeWebsite").removeClass("border-danger");
-        }
+           //College PinCode
+              if(!collegePinCode){
+               $("#CollegePinCode").addClass("border-danger");
+               toastr.error("Please enter the College Pin Code");
+               return false;
+           }
+           else{
+                $("#CollegePinCode").removeClass("border-danger");
+           }
 
-        //College Status
-        if(!collegeStatus){
-            $("#IsCollegeActive").addClass("border-danger");
-            toastr.error("Please enter the college Phone");
-            return false;
-        }
-        else{
-             $("#IsCollegeActive").removeClass("border-danger");
-        }
+           //College Admin
+           if(!collegeAdmin){
+               $("#CollegeAdmin").addClass("border-danger");
+               toastr.error("Please enter the College Admin Name");
+               return false;
+           }
+           else{
+                $("#CollegeAdmin").removeClass("border-danger");
+           }
 
-    }
+           //College Mail
+           if(!collegeMail){
+               $("#CollegeMail").addClass("border-danger");
+               toastr.error("Please enter the College Mail");
+               return false;
+           }
+           else{
+                $("#CollegeMail").removeClass("border-danger");
+           }
 
+
+           //College Phone
+           if(!collegePhone){
+               $("#CollegePhone").addClass("border-danger");
+               toastr.error("Please enter the College Phone/Mobile number.");
+               return false;
+           }
+           else{
+                $("#CollegePhone").removeClass("border-danger");
+           }
+
+           //College Website
+           if(!collegeWebsite){
+               $("#CollegeWebsite").addClass("border-danger");
+               toastr.error("Please enter the College Website Url");
+               return false;
+           }
+           else{
+                $("#CollegeWebsite").removeClass("border-danger");
+           }
+
+
+           return true;
+       }
 
 </script>
