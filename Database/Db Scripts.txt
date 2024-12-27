@@ -1,41 +1,62 @@
-CREATE TABLE FaceDetails
-(
-FaceID INT PRIMARY KEY IDENTITY(1,1),
-EmployeeID INT NOT NULL, 
-EmployeeName VARCHAR(50) NOT NULL,
-CompanyID INT NOT NULL,
-FaceEncodings VARBINARY(MAX) NOT NULL,
-CreateDate Date NOT NULL,
-CreatedBy  INT NOT NULL
-)
+CREATE TABLE StateMaster (
+    StateID INT PRIMARY KEY IDENTITY(1,1),
+    StateName VARCHAR(255) NOT NULL,
+    StateType VARCHAR(50) NOT NULL, 
+    CountryID INT NOT NULL
+);
 
 
 
+INSERT INTO stateMaster (StateName, StateType, CountryID) VALUES 
+('Andhra Pradesh', 'State', 1),
+('Arunachal Pradesh', 'State', 1),
+('Assam', 'State', 1),
+('Bihar', 'State', 1),
+('Chhattisgarh', 'State', 1),
+('Delhi', 'Union Territory', 1),
+('Goa', 'State', 1),
+('Gujarat', 'State', 1),
+('Haryana', 'State', 1),
+('Himachal Pradesh', 'State', 1),
+('Jammu & Kashmir', 'Union Territory', 1),
+('Jharkhand', 'State', 1),
+('Karnataka', 'State', 1),
+('Kerala', 'State', 1),
+('Madhya Pradesh', 'State', 1),
+('Maharashtra', 'State', 1),
+('Manipur', 'State', 1),
+('Meghalaya', 'State', 1),
+('Mizoram', 'State', 1),
+('Nagaland', 'State', 1),
+('Odisha', 'State', 1),
+('Puducherry', 'Union Territory', 1),
+('Punjab', 'State', 1),
+('Rajasthan', 'State', 1),
+('Sikkim', 'State', 1),
+('Tamil Nadu', 'State', 1),
+('Telangana', 'State', 1),
+('Tripura', 'State', 1),
+('Uttar Pradesh', 'State', 1),
+('Uttarakhand', 'State', 1),
+('West Bengal', 'State', 1),
+('Andaman and Nicobar Islands', 'Union Territory', 1),
+('Chandigarh', 'Union Territory', 1),
+('Dadra and Nagar Haveli and Daman and Diu', 'Union Territory', 1),
+('Lakshadweep', 'Union Territory', 1),
+('Ladakh', 'Union Territory', 1),
+('Laccadive Islands', 'Union Territory', 1),
+('Jammu & Kashmir (UT)', 'Union Territory', 1),
+('National Capital Territory of Delhi', 'Union Territory', 1);
 
-Create Table EmployeeDetails
-(
-  EmployeeID INT PRIMARY KEY IDENTITY(1,1),
-  EmployeeName VARCHAR(50) NOT NULL,
-  EmployeeCode VARCHAR(30) NOT NULL,
-  CompanyID   INT NOT NULL,
-  DateOfBirth Date NOT NULL,
-  Gender INT NOT NULL,
-  State INT NOT NULL,
-  CreatedDate Date NOT NULL
-)
 
 
-Create Table CompanyDetails
-(
- CompanyID INT PRIMARY KEY IDENTITY(1,1),
- CompanyName VARCHAR(50) NOT NULL,
- CompanyCode VARCHAR(30) NOT NULL,
-)
+CREATE TABLE CountryMaster (
+    CountryID INT PRIMARY KEY IDENTITY(1,1),
+    CountryName VARCHAR(255) NOT NULL
+);
+
+INSERT INTO countryMaster (CountryName) VALUES ('India'),('Others');
 
 
-Create Table HrDetails
-(
-  HRuserID INT PRIMARY KEY IDENTITY(1,1),
-  CompanyID INT NOT NULL,
-  EmployeeID INT NOT NULL
-)
+Select * from CountryMaster
+Select * from StateMaster
