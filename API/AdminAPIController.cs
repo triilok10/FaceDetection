@@ -40,8 +40,8 @@ namespace FaceDetection.API
                         {
                             countryList.Add(new CollegeDetails
                             {
-                                CountryID = rdr.GetInt32(rdr.GetOrdinal("StateID")),
-                                CountryName = rdr.GetString(rdr.GetOrdinal("StateName"))
+                                CountryID = rdr.GetInt32(rdr.GetOrdinal("CountryID")),
+                                CountryName = rdr.GetString(rdr.GetOrdinal("CountryName"))
                             });
                         }
                     }
