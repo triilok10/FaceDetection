@@ -75,7 +75,16 @@ namespace FaceDetection.Controllers
         [HttpPost]
         public IActionResult CollegeAdd(CollegeDetails pCollegeDetails)
         {
-            return View();
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+
+            }
+            return RedirectToAction("CollegeInfo", "UserAdmin");
         }
     }
 
