@@ -18,7 +18,7 @@ namespace FaceDetection.API
             _connectionString = configuration.GetConnectionString("CustomConnection");
         }
 
-
+        #region "Get CountryList"
         [HttpGet]
         public IActionResult GetCountryList()
         {
@@ -54,7 +54,9 @@ namespace FaceDetection.API
             }
             return Ok(countryList);
         }
+        #endregion
 
+        #region "Get StateList"
         [HttpGet]
         public IActionResult GetStateList()
         {
@@ -91,6 +93,38 @@ namespace FaceDetection.API
             }
             return Ok(stateList);
         }
+        #endregion
 
+
+        #region "Insert Collage"
+        public IActionResult InsertCollage([FromBody] CollegeDetails pCollageDetails)
+        {
+            bool res = false;
+            string msg = string.Empty;
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(_connectionString))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand("", con);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+
+                    cmd.Parameters.AddWithValue("", 1);
+                    cmd.Parameters.AddWithValue("", 1);
+                    cmd.Parameters.AddWithValue("", 1);
+                    cmd.Parameters.AddWithValue("", 1);
+                    cmd.Parameters.AddWithValue("", 1);
+                    cmd.Parameters.AddWithValue("", 1);
+                    cmd.Parameters.AddWithValue("", 1);
+                    cmd.Parameters.AddWithValue("", 1);
+                    cmd.Parameters.AddWithValue("", 1);
+                }
+            }
+            catch (Exception ex) { }
+            return Ok();
+        }
+        #endregion
     }
 }

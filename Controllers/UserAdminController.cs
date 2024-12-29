@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
 using System.Net.Http;
+using System.Text;
 
 namespace FaceDetection.Controllers
 {
@@ -73,10 +74,30 @@ namespace FaceDetection.Controllers
         }
 
         [HttpPost]
-        public IActionResult CollegeAdd(CollegeDetails pCollegeDetails)
+        public async Task<IActionResult> CollegeAdd(CollegeDetails pCollegeDetails)
         {
+            CollegeDetails obj = new CollegeDetails();
             try
             {
+                if (pCollegeDetails == null)
+                {
+                    obj.Status = false;
+                    obj.ErrMsg = "Please pass the required Parameter's.";
+                    return View(obj);
+                }
+
+                string url = baseUrl + "api/AdminAPI/InsertCollage";
+
+                string json = JsonConvert.SerializeObject(pCollegeDetails);
+                StringContent con = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage res = await _httpClient.PostAsync(url, con);
+                if (res.IsSuccessStatusCode)
+                {
+                    dynamic resBody = await res.Content.ReadAsStringAsync();
+                    dynamic resData = JsonConvert.DeserializeObject<dynamic>(resBody);
+                }
+
 
             }
             catch (Exception ex)
