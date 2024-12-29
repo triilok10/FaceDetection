@@ -42,7 +42,7 @@ namespace FaceDetection.API
 
                     using (SqlDataReader rdr = cmd.ExecuteReader())
                     {
-                        while (rdr.Read())
+                        if (rdr.Read())
                         {
                             obj.AdminLoginID = Convert.ToInt32(rdr["AdminLoginID"]);
                             obj.AdminLoginCode = Convert.ToString(rdr["AdminLoginCode"]);
@@ -51,6 +51,10 @@ namespace FaceDetection.API
                             obj.IsSystemUser = Convert.ToBoolean(rdr["IsSystemUser"]);
                             obj.UserCategoryString = Convert.ToString(userCategoryValue);
                             obj.IsSuccess = true;
+                        }
+                        else
+                        {
+                            obj.IsSuccess = false;
                         }
 
                     }

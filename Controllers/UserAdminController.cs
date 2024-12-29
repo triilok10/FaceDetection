@@ -86,7 +86,7 @@ namespace FaceDetection.Controllers
                     return View(obj);
                 }
 
-                string url = baseUrl + "api/AdminAPI/InsertCollage";
+                string url = baseUrl + "api/AdminAPI/InsertCollege";
 
                 string json = JsonConvert.SerializeObject(pCollegeDetails);
                 StringContent con = new StringContent(json, Encoding.UTF8, "application/json");
@@ -95,17 +95,26 @@ namespace FaceDetection.Controllers
                 if (res.IsSuccessStatusCode)
                 {
                     dynamic resBody = await res.Content.ReadAsStringAsync();
-                    dynamic resData = JsonConvert.DeserializeObject<dynamic>(resBody);
+                    obj = JsonConvert.DeserializeObject<CollegeDetails>(resBody);
                 }
 
-
+                if (obj.Status == true)
+                {
+                    TempData["successMessage"] = obj.ErrMsg;
+                    return RedirectToAction("CollegeInfo", "UserAdmin");
+                }
+                else
+                {
+                    TempData["errorMessage"] = obj.ErrMsg;
+                    return RedirectToAction("CollegeInfo", "UserAdmin");
+                }
             }
             catch (Exception ex)
             {
-
-
+                TempData["errorMessage"] = ex.Message;
+                return RedirectToAction("CollegeInfo", "UserAdmin");
             }
-            return RedirectToAction("CollegeInfo", "UserAdmin");
+
         }
     }
 

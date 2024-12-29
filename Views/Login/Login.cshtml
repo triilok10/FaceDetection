@@ -4,6 +4,15 @@
     Layout = "_LayoutLogin";
 }
 
+
+@if (TempData["errorMessage"] != null)
+{
+    <script>
+         alert('@TempData["errorMessage"]');
+        @*  toastr.error("@TempData["errorMessage"]"); *@
+    </script>
+}
+
 <style type="text/css">
 
 

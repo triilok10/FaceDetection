@@ -30,6 +30,9 @@
 </style>
 
 
+
+
+
 <div class="container form-container" id="displanyAddCollege">
     <div class="d-flex justify-content-between align-items-center">
         <h2>College Registration Form</h2>
@@ -44,6 +47,12 @@
             </div>
         </div>
         <div class="mb-3 row">
+            <label asp-for="CollegeCode" class="col-sm-4 col-form-label mandatory">College Code</label>
+            <div class="col-sm-8">
+                <input asp-for="CollegeCode" type="text" class="form-control" id="CollegeCode">
+            </div>
+        </div>
+        <div class="mb-3 row">
             <label asp-for="CollegeCity" class="col-sm-4 col-form-label mandatory">City/Location</label>
             <div class="col-sm-8">
                 <input asp-for="CollegeCity" type="text" class="form-control" id="CollegeCity">
@@ -54,7 +63,7 @@
         <div class="mb-3 row">
             <label asp-for="CollegeState" class="col-sm-4 col-form-label mandatory">State</label>
             <div class="col-sm-8">
-                @Html.DropDownList("StateId", new SelectList(ViewBag.StateList, "StateID", "StateName"),"Select a state",new { @class = "form-control", id = "stateDropdown" })
+                @Html.DropDownList("StateId", new SelectList(ViewBag.StateList, "StateID", "StateName"), "Select a state", new { @class = "form-control", id = "stateDropdown" })
             </div>
         </div>
 
@@ -62,7 +71,7 @@
         <div class="mb-3 row">
             <label asp-for="CollegeCountry" class="col-sm-4 col-form-label mandatory">Country</label>
             <div class="col-sm-8">
-                @Html.DropDownList("CountryId", new SelectList(ViewBag.CountryList, "CountryID", "CountryName"),"Select a country", new { @class = "form-control", id = "countryDropdown" })
+                @Html.DropDownList("CountryId", new SelectList(ViewBag.CountryList, "CountryID", "CountryName"), "Select a country", new { @class = "form-control", id = "countryDropdown" })
             </div>
         </div>
         <!-- College PinCode -->
@@ -128,9 +137,10 @@
        {
            debugger;
            var collegeName= $("#CollegeName").val();
+           var collegeCode= $("#CollegeCode").val();
            var collegeCity= $("#CollegeCity").val();
-           var collegeState= $("#CollegeState").val();
-           var collegeCountry= $("#CollegeCountry").val();
+           var collegeState= $("#stateDropdown").val();
+           var collegeCountry= $("#countryDropdown").val();
            var collegePinCode= $("#CollegePinCode").val();
            var collegeAdmin= $("#CollegeAdmin").val();
            var collegeMail= $("#CollegeMail").val();
@@ -150,6 +160,14 @@
                 $("#CollegeName").removeClass("border-danger");
            }
 
+            if(!collegeCode){
+               $("#CollegeCode").addClass("border-danger");
+               toastr.error("Please enter the College Code");
+               return false;
+           }
+           else{
+                $("#CollegeCode").removeClass("border-danger");
+           }
 
            //College Location City
            if(!collegeCity){

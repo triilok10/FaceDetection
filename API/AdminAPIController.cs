@@ -96,10 +96,9 @@ namespace FaceDetection.API
         #endregion
 
         #region "Insert Collage"
-        public IActionResult InsertCollage([FromBody] CollegeDetails pCollegeDetails)
+        public IActionResult InsertCollege([FromBody] CollegeDetails pCollegeDetails)
         {
-            bool res = false;
-            string msg = string.Empty;
+            CollegeDetails obj = new CollegeDetails();
 
             try
             {
@@ -112,8 +111,9 @@ namespace FaceDetection.API
 
                     cmd.Parameters.AddWithValue("@Mode", 1);
                     cmd.Parameters.AddWithValue("@CollegeName", pCollegeDetails.CollegeName);
+                    cmd.Parameters.AddWithValue("@CollegeCode", pCollegeDetails.CollegeCode);
                     cmd.Parameters.AddWithValue("@CollegeCity", pCollegeDetails.CollegeCity);
-                    cmd.Parameters.AddWithValue("@CollageStateID", pCollegeDetails.StateID);
+                    cmd.Parameters.AddWithValue("@CollegeStateID", pCollegeDetails.StateID);
                     cmd.Parameters.AddWithValue("@CollegeCountryID", pCollegeDetails.CountryID);
                     cmd.Parameters.AddWithValue("@CollegePinCode", pCollegeDetails.CollegePinCode);
                     cmd.Parameters.AddWithValue("@CollegeAdmin", pCollegeDetails.CollegeAdmin);
@@ -121,10 +121,17 @@ namespace FaceDetection.API
                     cmd.Parameters.AddWithValue("@CollegePhone", pCollegeDetails.CollegePhone);
                     cmd.Parameters.AddWithValue("@CollegeWebsite", pCollegeDetails.CollegeWebsite);
                     cmd.Parameters.AddWithValue("@IsCollegeActive", pCollegeDetails.IsCollegeActive);
+                    cmd.ExecuteNonQuery();
                 }
+                obj.Status = true;
+                obj.ErrMsg = "Data inserted successfully.";
             }
-            catch (Exception ex) { }
-            return Ok();
+            catch (Exception ex)
+            {
+                obj.Status = false;
+                obj.ErrMsg = ex.Message;
+            }
+            return Ok(obj);
         }
         #endregion
     }

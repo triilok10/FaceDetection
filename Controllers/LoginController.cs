@@ -104,7 +104,8 @@ namespace FaceDetection.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("UserStudent", "User");
+                        TempData["errorMessage"] = "Invalid Username or Password.";
+                        return RedirectToAction("Login", "Login");
                     }
                 }
             }
@@ -114,7 +115,7 @@ namespace FaceDetection.Controllers
                 message = ex.Message;
             }
 
-            return RedirectToAction("UserHome", "User");
+            return RedirectToAction("Login", "Login");
         }
 
         #endregion

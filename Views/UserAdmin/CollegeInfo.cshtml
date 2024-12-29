@@ -2,6 +2,20 @@
     ViewData["Title"] = "College Information";
 }
 
+@if (TempData["errorMessage"] != null)
+{
+    <script>
+         alert('@TempData["errorMessage"]');
+        @*  toastr.error("@TempData["errorMessage"]"); *@
+    </script>
+}
+@if (TempData["successMessage"] != null)
+{
+    <script>
+         alert('@TempData["successMessage"]');
+        @*  toastr.error("@TempData["errorMessage"]"); *@
+    </script>
+}
 <style>
     h2.bg-primary {
         font-size: 24px;
@@ -203,6 +217,6 @@
     }
 
 
-   
+
 </script>
 
