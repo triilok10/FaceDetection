@@ -95,9 +95,8 @@ namespace FaceDetection.API
         }
         #endregion
 
-
         #region "Insert Collage"
-        public IActionResult InsertCollage([FromBody] CollegeDetails pCollageDetails)
+        public IActionResult InsertCollage([FromBody] CollegeDetails pCollegeDetails)
         {
             bool res = false;
             string msg = string.Empty;
@@ -107,19 +106,21 @@ namespace FaceDetection.API
                 using (SqlConnection con = new SqlConnection(_connectionString))
                 {
                     con.Open();
-                    SqlCommand cmd = new SqlCommand("", con);
+                    SqlCommand cmd = new SqlCommand("usp_Collage", con);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
 
-                    cmd.Parameters.AddWithValue("", 1);
-                    cmd.Parameters.AddWithValue("", 1);
-                    cmd.Parameters.AddWithValue("", 1);
-                    cmd.Parameters.AddWithValue("", 1);
-                    cmd.Parameters.AddWithValue("", 1);
-                    cmd.Parameters.AddWithValue("", 1);
-                    cmd.Parameters.AddWithValue("", 1);
-                    cmd.Parameters.AddWithValue("", 1);
-                    cmd.Parameters.AddWithValue("", 1);
+                    cmd.Parameters.AddWithValue("@Mode", 1);
+                    cmd.Parameters.AddWithValue("@CollegeName", pCollegeDetails.CollegeName);
+                    cmd.Parameters.AddWithValue("@CollegeCity", pCollegeDetails.CollegeCity);
+                    cmd.Parameters.AddWithValue("@CollageStateID", pCollegeDetails.StateID);
+                    cmd.Parameters.AddWithValue("@CollegeCountryID", pCollegeDetails.CountryID);
+                    cmd.Parameters.AddWithValue("@CollegePinCode", pCollegeDetails.CollegePinCode);
+                    cmd.Parameters.AddWithValue("@CollegeAdmin", pCollegeDetails.CollegeAdmin);
+                    cmd.Parameters.AddWithValue("@CollegeMail", pCollegeDetails.CollegeMail);
+                    cmd.Parameters.AddWithValue("@CollegePhone", pCollegeDetails.CollegePhone);
+                    cmd.Parameters.AddWithValue("@CollegeWebsite", pCollegeDetails.CollegeWebsite);
+                    cmd.Parameters.AddWithValue("@IsCollegeActive", pCollegeDetails.IsCollegeActive);
                 }
             }
             catch (Exception ex) { }

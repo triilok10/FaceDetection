@@ -60,3 +60,25 @@ INSERT INTO countryMaster (CountryName) VALUES ('India'),('Others');
 
 Select * from CountryMaster
 Select * from StateMaster
+
+
+
+
+
+
+
+
+--College Details Table Query
+Create Table CollegeDetails
+(CollegeID INT PRIMARY KEY IDENTITY(1,1)
+, CollegeName VARCHAR(100) NOT NULL
+, CollegeCode VARCHAR(15) NOT NULL
+, CollegeCity VARCHAR(100) NOT NULL
+, StateID INT NOT NULL
+, CountryID INT NOT NULL
+, CollegePinCode VARCHAR(6) NOT NULL
+, CollegeAdmin VARCHAR(50) NOT NULL
+, CollegeMail VARCHAR(50) NOT NULL
+, CollegePhone VARCHAR(10) NOT NULL
+, CollegeWebsite VARCHAR(50) NOT NULL
+, IsCollegeActive BIT NOT NULL)
