@@ -1,19 +1,21 @@
-﻿@{
+﻿@model List<FaceDetection.Models.CollegeDetails>
+
+@{
     ViewData["Title"] = "College Information";
 }
 
 @if (TempData["errorMessage"] != null)
 {
     <script>
-         alert('@TempData["errorMessage"]');
-         toastr.error("@TempData["errorMessage"]");
+        alert('@TempData["errorMessage"]');
+        toastr.error("@TempData["errorMessage"]");
     </script>
 }
 @if (TempData["successMessage"] != null)
 {
     <script>
-         alert('@TempData["successMessage"]');
-         toastr.error("@TempData["errorMessage"]");
+        alert('@TempData["successMessage"]');
+        toastr.error("@TempData["errorMessage"]");
     </script>
 }
 <style>
@@ -102,71 +104,23 @@
             </tr>
         </thead>
         <tbody id="collegeList">
-            <tr>
-                <td>Oxford University</td>
-                <td>Oxford, UK</td>
-                <td>Clg</td>
-                <td>01/01/1167</td>
-                <td>John Doe</td>
-                <td>Active</td>
-                <td>
-                    <a href="#" class="btn btn-info btn-sm">View</a>
-                    <a href="#" class="btn btn-warning btn-sm">Edit</a>
-                    <a href="#" class="btn btn-danger btn-sm">Delete</a>
-                </td>
-            </tr>
-            <tr>
-                <td>Harvard University</td>
-                <td>Cambridge, MA, USA</td>
-                <td>Cambridge, MA, USA</td>
-                <td>01/01/1636</td>
-                <td>Jane Smith</td>
-                <td>Active</td>
-                <td>
-                    <a href="#" class="btn btn-info btn-sm">View</a>
-                    <a href="#" class="btn btn-warning btn-sm">Edit</a>
-                    <a href="#" class="btn btn-danger btn-sm">Delete</a>
-                </td>
-            </tr>
-            <tr>
-                <td>Stanford University</td>
-                <td>Stanford, CA, USA</td>
-                <td>Stanford, CA, USA</td>
-                <td>01/01/1885</td>
-                <td>Mark Brown</td>
-                <td>Inactive</td>
-                <td>
-                    <a href="#" class="btn btn-info btn-sm">View</a>
-                    <a href="#" class="btn btn-warning btn-sm">Edit</a>
-                    <a href="#" class="btn btn-danger btn-sm">Delete</a>
-                </td>
-            </tr>
-            <tr>
-                <td>MIT</td>
-                <td>Cambridge, MA, USA</td>
-                <td>Cambridge, MA, USA</td>
-                <td>01/01/1861</td>
-                <td>Emily White</td>
-                <td>Active</td>
-                <td>
-                    <a href="#" class="btn btn-info btn-sm">View</a>
-                    <a href="#" class="btn btn-warning btn-sm">Edit</a>
-                    <a href="#" class="btn btn-danger btn-sm">Delete</a>
-                </td>
-            </tr>
-            <tr>
-                <td>Cambridge University</td>
-                <td>Cambridge, UK</td>
-                <td>Cambridge, UK</td>
-                <td>01/01/1209</td>
-                <td>Sarah Black</td>
-                <td>Active</td>
-                <td>
-                    <a href="#" class="btn btn-info btn-sm">View</a>
-                    <a href="#" class="btn btn-warning btn-sm">Edit</a>
-                    <a href="#" class="btn btn-danger btn-sm">Delete</a>
-                </td>
-            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.CollegeName</td>
+                    <td>@item.CollegeCode</td>
+                    <td>@item.CollegeCity</td>
+                    <td>@item.CreatedOn</td>
+                    <td>@item.CollegeAdmin</td>
+                    <td>@item.IsCollegeActive</td>
+                    <td>
+                        <a href="#" class="btn btn-info btn-sm">View</a>
+                        <a href="#" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+
         </tbody>
 
     </table>
