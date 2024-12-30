@@ -6,14 +6,14 @@
 {
     <script>
          alert('@TempData["errorMessage"]');
-        @*  toastr.error("@TempData["errorMessage"]"); *@
+         toastr.error("@TempData["errorMessage"]");
     </script>
 }
 @if (TempData["successMessage"] != null)
 {
     <script>
          alert('@TempData["successMessage"]');
-        @*  toastr.error("@TempData["errorMessage"]"); *@
+         toastr.error("@TempData["errorMessage"]");
     </script>
 }
 <style>

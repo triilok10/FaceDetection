@@ -3,6 +3,7 @@ using FaceDetection.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 
@@ -40,9 +41,17 @@ namespace FaceDetection.Controllers
             return View();
         }
 
-        public IActionResult CollegeInfo()
+        public async Task<IActionResult> CollegeInfo()
         {
-            return View();
+            List<CollegeDetails> lst = new List<CollegeDetails>();
+            string apiUrl = baseUrl + "api/AdminAPI/GetCollegeList";
+            HttpResponseMessage apiResponse = await _httpClient.GetAsync(apiUrl);
+            if (apiResponse.IsSuccessStatusCode)
+            {
+                dynamic resBody = await apiResponse.Content.ReadAsStringAsync();
+                lst = JsonConvert.DeserializeObject<List<CollegeDetails>>(resBody);
+            }
+            return View(lst);
         }
         public IActionResult Module()
         {

@@ -105,7 +105,7 @@ namespace FaceDetection.API
                 using (SqlConnection con = new SqlConnection(_connectionString))
                 {
                     con.Open();
-                    SqlCommand cmd = new SqlCommand("usp_Collage", con);
+                    SqlCommand cmd = new SqlCommand("usp_College", con);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
 
@@ -133,6 +133,47 @@ namespace FaceDetection.API
             }
             return Ok(obj);
         }
+        #endregion
+
+        #region "GetCollegeList"
+        [HttpGet]
+        public IActionResult GetCollegeList()
+        {
+            List<CollegeDetails> lstCollege = new List<CollegeDetails>();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(_connectionString))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand("usp_College", con);
+                    cmd.Parameters.AddWithValue("@Mode", 2);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            lstCollege.Add(new CollegeDetails
+                            {
+                                CollegeID = Convert.ToInt32(rdr["CollegeID"]),
+                                CollegeName = Convert.ToString(rdr["CollegeName"]),
+                                CollegeCode = Convert.ToString(rdr["CollegeCode"]),
+                                CollegeCity = Convert.ToString(rdr["CollegeCity"]),
+                                CreatedOn = Convert.ToDateTime(rdr["CreateDate"]),
+                                CollegeAdmin = Convert.ToString(rdr["CollegeAdmin"]),
+                                IsCollegeActive = Convert.ToBoolean(rdr["IsCollegeActive"]),
+                            });
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(400);
+            }
+            return Ok(lstCollege);
+        }
+
         #endregion
     }
 }

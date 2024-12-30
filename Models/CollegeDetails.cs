@@ -32,5 +32,6 @@
         public int? StateID { get; set; }
         public bool? Status { get; set; }
         public string? ErrMsg { get; set; }
+        public DateTime? CreatedOn { get; set; }
     }
 }
