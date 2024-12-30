@@ -43,15 +43,23 @@ namespace FaceDetection.Controllers
 
         public async Task<IActionResult> CollegeInfo()
         {
-            List<CollegeDetails> lst = new List<CollegeDetails>();
-            string apiUrl = baseUrl + "api/AdminAPI/GetCollegeList";
-            HttpResponseMessage apiResponse = await _httpClient.GetAsync(apiUrl);
-            if (apiResponse.IsSuccessStatusCode)
+            try
             {
-                dynamic resBody = await apiResponse.Content.ReadAsStringAsync();
-                lst = JsonConvert.DeserializeObject<List<CollegeDetails>>(resBody);
+
+                List<CollegeDetails> lst = new List<CollegeDetails>();
+                string apiUrl = baseUrl + "api/AdminAPI/GetCollegeList";
+                HttpResponseMessage apiResponse = await _httpClient.GetAsync(apiUrl);
+                if (apiResponse.IsSuccessStatusCode)
+                {
+                    dynamic resBody = await apiResponse.Content.ReadAsStringAsync();
+                    lst = JsonConvert.DeserializeObject<List<CollegeDetails>>(resBody);
+                }
+                return View(lst);
             }
-            return View(lst);
+            catch (Exception ex)
+            {
+                return RedirectToAction("Error", "Home", ex.Message);
+            }
         }
         public IActionResult Module()
         {

@@ -139,6 +139,8 @@ namespace FaceDetection.API
         [HttpGet]
         public IActionResult GetCollegeList()
         {
+            string Message = string.Empty;
+            bool res = false;
             List<CollegeDetails> lstCollege = new List<CollegeDetails>();
             try
             {
@@ -169,7 +171,7 @@ namespace FaceDetection.API
             }
             catch (Exception ex)
             {
-                return BadRequest(400);
+                return BadRequest(ex.Message);
             }
             return Ok(lstCollege);
         }
