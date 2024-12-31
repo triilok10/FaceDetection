@@ -177,5 +177,60 @@ namespace FaceDetection.API
         }
 
         #endregion
+
+        #region "GetRecord"
+        [HttpGet]
+        public IActionResult GetRecord(int CollegeID = 0)
+        {
+            CollegeDetails obj = new CollegeDetails();
+            try
+            {
+                if (CollegeID <= 0)
+                {
+                    obj.ErrMsg = "Please pass the CollegeID.";
+                    obj.Status = false;
+
+                    return Ok(obj);
+                }
+
+
+                using (SqlConnection con = new SqlConnection(_connectionString))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand("usp_College", con);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Mode", 3);
+                    cmd.Parameters.AddWithValue("@CollegeID", CollegeID);
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            obj.CollegeID = Convert.ToInt32(rdr["CollegeID"]);
+                            obj.CollegeName = Convert.ToString(rdr["CollegeName"]);
+                            obj.CollegeCode = Convert.ToString(rdr["CollegeCode"]);
+                            obj.CollegeCity = Convert.ToString(rdr["CollegeCity"]);
+                            obj.StateID = Convert.ToInt32(rdr["StateID"]);
+                            obj.CountryID = Convert.ToInt32(rdr["CountryID"]);
+                            obj.CollegePinCode = Convert.ToString(rdr["CollegePinCode"]);
+                            obj.CollegeAdmin = Convert.ToString(rdr["CollegeAdmin"]);
+                            obj.CollegeMail = Convert.ToString(rdr["CollegeMail"]);
+                            obj.CollegePhone = Convert.ToString(rdr["CollegePhone"]);
+                            obj.IsCollegeActive = Convert.ToBoolean(rdr["IsCollegeActive"]);
+                            obj.CollegeWebsite = Convert.ToString(rdr["CollegeWebsite"]);
+                            obj.ErrMsg = "Data retrived successfully.";
+                            obj.Status = true;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                obj.ErrMsg = ex.Message;
+                obj.Status = false;
+            }
+            return Ok(obj);
+        }
+        #endregion
     }
 }

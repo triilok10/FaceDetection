@@ -41,6 +41,7 @@ namespace FaceDetection.Controllers
             return View();
         }
 
+        #region "CollegeInfo"
         public async Task<IActionResult> CollegeInfo()
         {
             try
@@ -61,14 +62,12 @@ namespace FaceDetection.Controllers
                 return RedirectToAction("Error", "Home", ex.Message);
             }
         }
-        public IActionResult Module()
-        {
-            return View();
-        }
+        #endregion
 
-        public async Task<PartialViewResult> College()
+        #region "College"
+        [HttpPost]
+        public async Task<PartialViewResult> College([FromBody] CollegeDetails pCollegeDetails)
         {
-
             string StateURL = baseUrl + "api/AdminAPI/GetStateList";
             HttpResponseMessage StateResponse = await _httpClient.GetAsync(StateURL);
             if (StateResponse.IsSuccessStatusCode)
@@ -78,7 +77,6 @@ namespace FaceDetection.Controllers
                 ViewBag.StateList = lst;
             }
 
-
             string CountryURL = baseUrl + "api/AdminAPI/GetCountryList";
             HttpResponseMessage CountryResponse = await _httpClient.GetAsync(CountryURL);
             if (CountryResponse.IsSuccessStatusCode)
@@ -87,8 +85,35 @@ namespace FaceDetection.Controllers
                 List<CollegeDetails> lst = JsonConvert.DeserializeObject<List<CollegeDetails>>(resBody);
                 ViewBag.CountryList = lst;
             }
-            return PartialView();
+
+            if (pCollegeDetails.CollegeID == 0)
+            {
+
+                return PartialView();
+            }
+            else
+            {
+                CollegeDetails obj = new CollegeDetails();
+                string apiURL = baseUrl + $"api/AdminAPI/GetRecord?CollegeID={pCollegeDetails.CollegeID}";
+                HttpResponseMessage getResponse = await _httpClient.GetAsync(apiURL);
+                if (getResponse.IsSuccessStatusCode)
+                {
+                    dynamic resGetBody = await getResponse.Content.ReadAsStringAsync();
+                    obj = JsonConvert.DeserializeObject<CollegeDetails>(resGetBody);
+
+                }
+                return PartialView(obj);
+            }
         }
+        #endregion
+
+        public IActionResult Module()
+        {
+            return View();
+        }
+
+
+
 
         [HttpPost]
         public async Task<IActionResult> CollegeAdd(CollegeDetails pCollegeDetails)

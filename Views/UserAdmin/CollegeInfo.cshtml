@@ -114,9 +114,9 @@
                     <td>@item.CollegeAdmin</td>
                     <td>@item.IsCollegeActive</td>
                     <td>
-                        <a href="#" class="btn btn-info btn-sm">View</a>
-                        <a href="#" class="btn btn-warning btn-sm">Edit</a>
-                        <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                        <a href="JavaScript:Void()" class="btn btn-info btn-sm" onclick="js_CollegeView(@item.CollegeID);">View</a>
+                        <a href="JavaScript:Void()" class="btn btn-warning btn-sm" onclick="js_CollegeEdit(@item.CollegeID);">Edit</a>
+                        <a href="JavaScript:Void()" class="btn btn-danger btn-sm" onclick="js_CollegeDelete(@item.CollegeID);">Delete</a>
                     </td>
                 </tr>
             }
@@ -148,10 +148,15 @@
     });
 
     function js_AddCollage(){
+         var model = {
+            CollegeID: 0
+        };
 
         $.ajax({
             url:"@Url.Action("College", "UserAdmin")",
-            type:"GET",
+            type:"POST",
+             contentType: "application/json",
+            data: JSON.stringify(model),
             success:function(res){
                 $("#displayNone").hide();
                 $("#displayNone1").hide();
@@ -170,6 +175,36 @@
             $("#displanyAddCollege").hide();
     }
 
+        function js_CollegeEdit(collegeID) {
+        var model = {
+            CollegeID: collegeID
+        };
+
+
+        if (collegeID == 0 || collegeID <= 0) {
+            toastr.error("Please pass the correct CollegeID.");
+            return false;
+        }
+
+      
+        $.ajax({
+            url: "@Url.Action("College", "UserAdmin")",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(model),
+            success: function (res) {
+                console.log("Success:", res);
+                $("#displayNone").hide();
+                $("#displayNone1").hide();
+                $("#displayNone2").hide();
+                $("#idAddCollegeName").html(res);
+            },
+            error: function (err) {
+                console.error("Error:", err);
+                toastr.error("An error occurred while editing the college.");
+            }
+        });
+    }
 
 
 </script>
