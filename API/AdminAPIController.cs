@@ -135,6 +135,82 @@ namespace FaceDetection.API
         }
         #endregion
 
+        #region "Edit College"
+        [HttpPost]
+        public IActionResult EditCollege([FromBody] CollegeDetails pCollegeDetails)
+        {
+            CollegeDetails obj = new CollegeDetails();
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(_connectionString))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand("usp_College", con);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+
+                    cmd.Parameters.AddWithValue("@Mode", 4);
+                    cmd.Parameters.AddWithValue("@CollegeID", pCollegeDetails.CollegeID);
+                    cmd.Parameters.AddWithValue("@CollegeName", pCollegeDetails.CollegeName);
+                    cmd.Parameters.AddWithValue("@CollegeCode", pCollegeDetails.CollegeCode);
+                    cmd.Parameters.AddWithValue("@CollegeCity", pCollegeDetails.CollegeCity);
+                    cmd.Parameters.AddWithValue("@CollegeStateID", pCollegeDetails.StateID);
+                    cmd.Parameters.AddWithValue("@CollegeCountryID", pCollegeDetails.CountryID);
+                    cmd.Parameters.AddWithValue("@CollegePinCode", pCollegeDetails.CollegePinCode);
+                    cmd.Parameters.AddWithValue("@CollegeAdmin", pCollegeDetails.CollegeAdmin);
+                    cmd.Parameters.AddWithValue("@CollegeMail", pCollegeDetails.CollegeMail);
+                    cmd.Parameters.AddWithValue("@CollegePhone", pCollegeDetails.CollegePhone);
+                    cmd.Parameters.AddWithValue("@CollegeWebsite", pCollegeDetails.CollegeWebsite);
+                    cmd.Parameters.AddWithValue("@IsCollegeActive", pCollegeDetails.IsCollegeActive);
+                    cmd.ExecuteNonQuery();
+                }
+                obj.Status = true;
+                obj.ErrMsg = "Data Updated successfully.";
+            }
+            catch (Exception ex)
+            {
+                obj.Status = false;
+                obj.ErrMsg = ex.Message;
+            }
+            return Ok(obj);
+        }
+        #endregion
+
+        #region "DeleteCollege"
+        [HttpPost]
+        public IActionResult DeleteCollege([FromBody] CollegeDetails pCollegeDetails)
+        {
+            CollegeDetails obj = new CollegeDetails();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(_connectionString))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand("usp_College", con);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Mode", 5);
+                    cmd.Parameters.AddWithValue("@CollegeID", pCollegeDetails.CollegeID);
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            obj.Status = Convert.ToBoolean(rdr["Status"]);
+                            obj.ErrMsg = Convert.ToString(rdr["ReturnMessage"]);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                obj.ErrMsg = ex.Message;
+                obj.Status = false;
+            }
+            return Ok(obj);
+        }
+        #endregion
+
         #region "GetCollegeList"
         [HttpGet]
         public IActionResult GetCollegeList()

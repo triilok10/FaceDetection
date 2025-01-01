@@ -130,6 +130,7 @@
 </div>
 
 <script>
+
     document.getElementById('searchButton').addEventListener('click', function () {
         var searchCode = document.getElementById('collegeCodeSearch').value.toLowerCase();
         var searchName = document.getElementById('collegeNameSearch').value.toLowerCase();
@@ -147,6 +148,8 @@
         });
     });
 
+
+    //Partial View Insert/Add College
     function js_AddCollage(){
          var model = {
             CollegeID: 0
@@ -168,6 +171,7 @@
 
     }
 
+    //Partial View Close
     function js_CloseAddCollege(){
             $("#displayNone").show();
             $("#displayNone1").show();
@@ -175,6 +179,8 @@
             $("#displanyAddCollege").hide();
     }
 
+
+    // Edit
         function js_CollegeEdit(collegeID) {
         var model = {
             CollegeID: collegeID
@@ -186,7 +192,7 @@
             return false;
         }
 
-      
+
         $.ajax({
             url: "@Url.Action("College", "UserAdmin")",
             type: "POST",
@@ -206,6 +212,27 @@
         });
     }
 
+
+    function js_CollegeDelete(CollegeId){
+
+        debugger;
+        if(confirm("Are you sure to delete this College?"));
+
+        var model = {
+            CollegeID :CollegeId
+        };
+
+        $.ajax({
+            url: "@Url.Action("DeleteCollege", "UserAdmin")",
+             type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(model),
+            success: function(res){
+            },error: function(err){
+            }
+        })
+
+    }
 
 </script>
 

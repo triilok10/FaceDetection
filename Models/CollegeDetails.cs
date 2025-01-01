@@ -25,7 +25,7 @@
         //CollegeWebsite
         public string? CollegeWebsite { get; set; }
         //IsCollegeActive
-        public bool IsCollegeActive { get; set; } = false; //Default False
+        public bool IsCollegeActive { get; set; }
         public string? CountryName { get; set; }
         public int? CountryID { get; set; }
         public string? StateName { get; set; }

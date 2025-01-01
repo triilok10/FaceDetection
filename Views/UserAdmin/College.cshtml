@@ -44,6 +44,7 @@
             <label asp-for="CollegeName" class="col-sm-4 col-form-label mandatory">Name</label>
             <div class="col-sm-8">
                 <input asp-for="CollegeName" type="text" class="form-control" id="CollegeName">
+                <input asp-for="CollegeID" type="hidden" />
             </div>
         </div>
         <div class="mb-3 row">
@@ -59,29 +60,50 @@
             </div>
         </div>
 
-        <!-- College State Dropdown -->
+        @if (ViewBag.Insert == false)
+        {
+            <!-- College State Dropdown -->
 
-        <div class="mb-3 row">
-            <label asp-for="CollegeState" class="col-sm-4 col-form-label mandatory">State</label>
-            <div class="col-sm-8">
-                @Html.DropDownListFor(m => m.StateID,
-                         new SelectList(ViewBag.StateList, "StateID", "StateName", Model.StateID),
-                         "Select a State",
-                         new { @class = "form-control", id = "stateDropdown" })
+            <div class="mb-3 row">
+                <label asp-for="CollegeState" class="col-sm-4 col-form-label mandatory">State</label>
+                <div class="col-sm-8">
+                    @Html.DropDownListFor(m => m.StateID,
+                             new SelectList(ViewBag.StateList, "StateID", "StateName", Model.StateID),
+                             "Select a State",
+                             new { @class = "form-control", id = "stateDropdown" })
+                </div>
             </div>
-        </div>
 
-        <!-- College Country Dropdown -->
+            <!-- College Country Dropdown -->
 
-        <div class="mb-3 row">
-            <label asp-for="CollegeCountry" class="col-sm-4 col-form-label mandatory">Country</label>
-            <div class="col-sm-8">
-                @Html.DropDownListFor(m => m.CountryID,
-                         new SelectList(ViewBag.CountryList, "CountryID", "CountryName", Model.CountryID),
-                         "Select a country",
-                         new { @class = "form-control", id = "countryDropdown" })
+            <div class="mb-3 row">
+                <label asp-for="CollegeCountry" class="col-sm-4 col-form-label mandatory">Country</label>
+                <div class="col-sm-8">
+                    @Html.DropDownListFor(m => m.CountryID,
+                             new SelectList(ViewBag.CountryList, "CountryID", "CountryName", Model.CountryID),
+                             "Select a country",
+                             new { @class = "form-control", id = "countryDropdown" })
+                </div>
             </div>
-        </div>
+        }
+        else
+        {
+            <div class="mb-3 row">
+                <label asp-for="CollegeState" class="col-sm-4 col-form-label mandatory">State</label>
+                <div class="col-sm-8">
+                    @Html.DropDownList("StateId", new SelectList(ViewBag.StateList, "StateID", "StateName"), "Select a state", new { @class = "form-control", id = "stateDropdown" })
+                </div>
+            </div>
+
+            <!-- College Country Dropdown -->
+            <div class="mb-3 row">
+                <label asp-for="CollegeCountry" class="col-sm-4 col-form-label mandatory">Country</label>
+                <div class="col-sm-8">
+                    @Html.DropDownList("CountryId", new SelectList(ViewBag.CountryList, "CountryID", "CountryName"), "Select a country", new { @class = "form-control", id = "countryDropdown" })
+                </div>
+            </div>
+        }
+
 
         <!-- College PinCode -->
         <div class="mb-3 row">
@@ -128,7 +150,7 @@
         <fieldset class='mb-3 row'>
             <label asp-for="IsCollegeActive" class='col-sm-4 col-form-label mandatory'>Status</label>
             <div class='col-sm-8'>
-                <input asp-for="IsCollegeActive" type='checkbox' id='IsCollegeActive' value='' checked class="me-2" />
+                <input asp-for="IsCollegeActive" type='checkbox' id='IsCollegeActive' class="me-2" />
             </div>
         </fieldset>
 

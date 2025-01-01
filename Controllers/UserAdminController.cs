@@ -64,6 +64,44 @@ namespace FaceDetection.Controllers
         }
         #endregion
 
+        #region "Delete College"
+        [HttpPost]
+        public async Task<IActionResult> DeleteCollege([FromBody] CollegeDetails pCollegeDetails)
+        {
+            CollegeDetails obj = new CollegeDetails();
+            try
+            {
+                string APIUrl = baseUrl + "api/AdminAPI/DeleteCollege";
+                string Json = JsonConvert.SerializeObject(pCollegeDetails);
+                StringContent content = new StringContent(Json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage res = await _httpClient.PostAsync(APIUrl, content);
+                if (res.IsSuccessStatusCode)
+                {
+                    dynamic resBody = await res.Content.ReadAsStringAsync();
+                    obj = JsonConvert.DeserializeObject<CollegeDetails>(resBody);
+
+                    if (obj.Status == true)
+                    {
+                        TempData["successMessage"] = obj.ErrMsg;
+                    }
+                    else
+                    {
+                        TempData["errorMessage"] = obj.ErrMsg;
+                    }
+                }
+                return RedirectToAction("CollegeInfo", "UserAdmin", obj);
+            }
+            catch (Exception ex)
+            {
+                obj.ErrMsg = ex.Message;
+                obj.Status = false;
+                return RedirectToAction("CollegeInfo", "UserAdmin", obj);
+            }
+
+        }
+        #endregion
+
         #region "College"
         [HttpPost]
         public async Task<PartialViewResult> College([FromBody] CollegeDetails pCollegeDetails)
@@ -88,7 +126,7 @@ namespace FaceDetection.Controllers
 
             if (pCollegeDetails.CollegeID == 0)
             {
-
+                ViewBag.Insert = true;
                 return PartialView();
             }
             else
@@ -102,10 +140,12 @@ namespace FaceDetection.Controllers
                     obj = JsonConvert.DeserializeObject<CollegeDetails>(resGetBody);
 
                 }
+                ViewBag.Insert = false;
                 return PartialView(obj);
             }
         }
         #endregion
+
 
         public IActionResult Module()
         {
@@ -114,13 +154,14 @@ namespace FaceDetection.Controllers
 
 
 
-
+        #region "CollegeAdd"
         [HttpPost]
         public async Task<IActionResult> CollegeAdd(CollegeDetails pCollegeDetails)
         {
             CollegeDetails obj = new CollegeDetails();
             try
             {
+
                 if (pCollegeDetails == null)
                 {
                     obj.Status = false;
@@ -128,28 +169,62 @@ namespace FaceDetection.Controllers
                     return View(obj);
                 }
 
-                string url = baseUrl + "api/AdminAPI/InsertCollege";
-
-                string json = JsonConvert.SerializeObject(pCollegeDetails);
-                StringContent con = new StringContent(json, Encoding.UTF8, "application/json");
-
-                HttpResponseMessage res = await _httpClient.PostAsync(url, con);
-                if (res.IsSuccessStatusCode)
+                if (pCollegeDetails.CollegeID > 0)
                 {
-                    dynamic resBody = await res.Content.ReadAsStringAsync();
-                    obj = JsonConvert.DeserializeObject<CollegeDetails>(resBody);
-                }
 
-                if (obj.Status == true)
-                {
-                    TempData["successMessage"] = obj.ErrMsg;
-                    return RedirectToAction("CollegeInfo", "UserAdmin");
+                    string url = baseUrl + "api/AdminAPI/EditCollege";
+
+                    string json = JsonConvert.SerializeObject(pCollegeDetails);
+                    StringContent con = new StringContent(json, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage res = await _httpClient.PostAsync(url, con);
+                    if (res.IsSuccessStatusCode)
+                    {
+                        dynamic resBody = await res.Content.ReadAsStringAsync();
+                        obj = JsonConvert.DeserializeObject<CollegeDetails>(resBody);
+                    }
+
+                    if (obj.Status == true)
+                    {
+                        TempData["successMessage"] = obj.ErrMsg;
+                        return RedirectToAction("CollegeInfo", "UserAdmin");
+                    }
+                    else
+                    {
+                        TempData["errorMessage"] = obj.ErrMsg;
+                        return RedirectToAction("CollegeInfo", "UserAdmin");
+                    }
+
                 }
                 else
                 {
-                    TempData["errorMessage"] = obj.ErrMsg;
-                    return RedirectToAction("CollegeInfo", "UserAdmin");
+
+
+
+                    string url = baseUrl + "api/AdminAPI/InsertCollege";
+
+                    string json = JsonConvert.SerializeObject(pCollegeDetails);
+                    StringContent con = new StringContent(json, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage res = await _httpClient.PostAsync(url, con);
+                    if (res.IsSuccessStatusCode)
+                    {
+                        dynamic resBody = await res.Content.ReadAsStringAsync();
+                        obj = JsonConvert.DeserializeObject<CollegeDetails>(resBody);
+                    }
+
+                    if (obj.Status == true)
+                    {
+                        TempData["successMessage"] = obj.ErrMsg;
+                        return RedirectToAction("CollegeInfo", "UserAdmin");
+                    }
+                    else
+                    {
+                        TempData["errorMessage"] = obj.ErrMsg;
+                        return RedirectToAction("CollegeInfo", "UserAdmin");
+                    }
                 }
+
             }
             catch (Exception ex)
             {
@@ -158,6 +233,7 @@ namespace FaceDetection.Controllers
             }
 
         }
+        #endregion
     }
 
 }

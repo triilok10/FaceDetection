@@ -1,3 +1,4 @@
+--StateTable
 CREATE TABLE StateMaster (
     StateID INT PRIMARY KEY IDENTITY(1,1),
     StateName VARCHAR(255) NOT NULL,
@@ -5,7 +6,7 @@ CREATE TABLE StateMaster (
     CountryID INT NOT NULL
 );
 
-
+--DB Query
 
 INSERT INTO stateMaster (StateName, StateType, CountryID) VALUES 
 ('Andhra Pradesh', 'State', 1),
@@ -49,12 +50,13 @@ INSERT INTO stateMaster (StateName, StateType, CountryID) VALUES
 ('National Capital Territory of Delhi', 'Union Territory', 1);
 
 
-
+--CountryMaster TABLE
 CREATE TABLE CountryMaster (
     CountryID INT PRIMARY KEY IDENTITY(1,1),
     CountryName VARCHAR(255) NOT NULL
 );
 
+--CountryMaster DB Query
 INSERT INTO countryMaster (CountryName) VALUES ('India'),('Others');
 
 
@@ -69,8 +71,26 @@ Select * from StateMaster
 
 
 --College Details Table Query
+
 Create Table CollegeDetails
 (CollegeID INT PRIMARY KEY IDENTITY(1,1)
+, CollegeName VARCHAR(100) NOT NULL
+, CollegeCode VARCHAR(15) NOT NULL
+, CollegeCity VARCHAR(100) NOT NULL
+, StateID INT NOT NULL
+, CountryID INT NOT NULL
+, CollegePinCode VARCHAR(6) NOT NULL
+, CollegeAdmin VARCHAR(50) NOT NULL
+, CollegeMail VARCHAR(50) NOT NULL
+, CollegePhone VARCHAR(10) NOT NULL
+, CollegeWebsite VARCHAR(50) NOT NULL
+, IsCollegeActive BIT NOT NULL)
+
+
+--Deleted CollegeDetails TABLE
+
+Create Table CollegeDeletedDetails
+( CollegeDeletedID INT PRIMARY KEY IDENTITY(1,1)
 , CollegeName VARCHAR(100) NOT NULL
 , CollegeCode VARCHAR(15) NOT NULL
 , CollegeCity VARCHAR(100) NOT NULL
