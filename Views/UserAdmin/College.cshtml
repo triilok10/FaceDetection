@@ -60,20 +60,29 @@
         </div>
 
         <!-- College State Dropdown -->
+
         <div class="mb-3 row">
             <label asp-for="CollegeState" class="col-sm-4 col-form-label mandatory">State</label>
             <div class="col-sm-8">
-                @Html.DropDownList("StateId", new SelectList(ViewBag.StateList, "StateID", "StateName"), "Select a state", new { @class = "form-control", id = "stateDropdown" })
+                @Html.DropDownListFor(m => m.StateID,
+                         new SelectList(ViewBag.StateList, "StateID", "StateName", Model.StateID),
+                         "Select a State",
+                         new { @class = "form-control", id = "stateDropdown" })
             </div>
         </div>
 
         <!-- College Country Dropdown -->
+
         <div class="mb-3 row">
             <label asp-for="CollegeCountry" class="col-sm-4 col-form-label mandatory">Country</label>
             <div class="col-sm-8">
-                @Html.DropDownList("CountryId", new SelectList(ViewBag.CountryList, "CountryID", "CountryName"), "Select a country", new { @class = "form-control", id = "countryDropdown" })
+                @Html.DropDownListFor(m => m.CountryID,
+                         new SelectList(ViewBag.CountryList, "CountryID", "CountryName", Model.CountryID),
+                         "Select a country",
+                         new { @class = "form-control", id = "countryDropdown" })
             </div>
         </div>
+
         <!-- College PinCode -->
         <div class="mb-3 row">
             <label asp-for="CollegePinCode" class="col-sm-4 col-form-label mandatory">Pin Code</label>
