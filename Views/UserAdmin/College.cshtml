@@ -62,17 +62,6 @@
 
         @if (ViewBag.Insert == false)
         {
-            <!-- College State Dropdown -->
-
-            <div class="mb-3 row">
-                <label asp-for="CollegeState" class="col-sm-4 col-form-label mandatory">State</label>
-                <div class="col-sm-8">
-                    @Html.DropDownListFor(m => m.StateID,
-                             new SelectList(ViewBag.StateList, "StateID", "StateName", Model.StateID),
-                             "Select a State",
-                             new { @class = "form-control", id = "stateDropdown" })
-                </div>
-            </div>
 
             <!-- College Country Dropdown -->
 
@@ -85,21 +74,37 @@
                              new { @class = "form-control", id = "countryDropdown" })
                 </div>
             </div>
-        }
-        else
-        {
+
+            <!-- College State Dropdown -->
+
             <div class="mb-3 row">
                 <label asp-for="CollegeState" class="col-sm-4 col-form-label mandatory">State</label>
                 <div class="col-sm-8">
-                    @Html.DropDownList("StateId", new SelectList(ViewBag.StateList, "StateID", "StateName"), "Select a state", new { @class = "form-control", id = "stateDropdown" })
+                    @Html.DropDownListFor(m => m.StateID,
+                             new SelectList(ViewBag.StateList, "StateID", "StateName", Model.StateID),
+                             "Select a State",
+                             new { @class = "form-control", id = "stateDropdown" })
                 </div>
             </div>
+
+
+        }
+        else
+        {
 
             <!-- College Country Dropdown -->
             <div class="mb-3 row">
                 <label asp-for="CollegeCountry" class="col-sm-4 col-form-label mandatory">Country</label>
                 <div class="col-sm-8">
                     @Html.DropDownList("CountryId", new SelectList(ViewBag.CountryList, "CountryID", "CountryName"), "Select a country", new { @class = "form-control", id = "countryDropdown" })
+                </div>
+            </div>
+
+
+            <div class="mb-3 row">
+                <label asp-for="CollegeState" class="col-sm-4 col-form-label mandatory">State</label>
+                <div class="col-sm-8">
+                    @Html.DropDownList("StateId", new SelectList(ViewBag.StateList, "StateID", "StateName"), "Select a state", new { @class = "form-control", id = "stateDropdown" })
                 </div>
             </div>
         }
@@ -164,6 +169,90 @@
 <script type="text/javascript">
 
 
+       $(document).ready(function() {
+
+               $(document).ready(function() {
+
+    @* Validation for the College Code *@
+        $("#CollegeCode").on("keydown", function(event) {
+            if (event.key === " ") {
+                event.preventDefault();
+                $(this).addClass("border-danger");
+                toastr.error("Spaces are not allowed in College Code.");
+            } else {
+                $(this).removeClass("border-danger");
+            }
+        });
+
+    @* Validation for the College Phone *@
+        $("#CollegePhone").on("keydown", function(event) {
+            var collegePhone = $(this).val();
+
+            // Allow only numeric keys (0-9), backspace, tab, and delete
+            if (!((event.key >= '0' && event.key <= '9') ||
+                   event.key === "Backspace" ||
+                   event.key === "Tab" ||
+                   event.key === "Delete")) {
+                event.preventDefault();
+                $(this).addClass("border-danger");
+                toastr.error("Only numbers are allowed in the College Phone Number.");
+            } else if (collegePhone.length >= 10 && event.key !== "Backspace") {
+                event.preventDefault();
+                $(this).addClass("border-danger");
+                toastr.error("You can only enter up to 10 digits.");
+            } else {
+                $(this).removeClass("border-danger");
+            }
+        });
+
+    @* Additional validation on blur *@
+        $("#CollegePhone").on("blur", function() {
+            var collegePhone = $(this).val();
+
+            if (!collegePhone || collegePhone.length !== 10) {
+                $(this).addClass("border-danger");
+                toastr.error("Please enter a valid College Phone/Mobile number (10 digits).");
+            } else {
+                $(this).removeClass("border-danger");
+            }
+        });
+
+    @* Validation for the College Pin Code *@
+        $("#CollegePinCode").on("keydown", function(event) {
+            var pinCode = $(this).val();
+
+            if (!((event.key >= '0' && event.key <= '9') ||
+                   event.key === "Backspace" ||
+                   event.key === "Tab" ||
+                   event.key === "Delete")) {
+                event.preventDefault();
+                $(this).addClass("border-danger");
+                toastr.error("Only numbers are allowed in the Pin Code.");
+            } else if (pinCode.length >= 6 && event.key !== "Backspace") {
+                event.preventDefault();
+                $(this).addClass("border-danger");
+                toastr.error("You can only enter up to 6 digits.");
+            } else {
+                $(this).removeClass("border-danger");
+            }
+        });
+
+    @* Additional validation on blur *@
+        $("#CollegePinCode").on("blur", function() {
+            var pinCode = $(this).val();
+
+            if (!pinCode || pinCode.length !== 6) {
+                $(this).addClass("border-danger");
+                toastr.error("Please enter a valid Pin Code (6 digits).");
+            } else {
+                $(this).removeClass("border-danger");
+            }
+        });
+    });
+    });
+
+
+
     function js_ValidateCollegeDetails()
        {
            debugger;
@@ -190,6 +279,13 @@
            else{
                 $("#CollegeName").removeClass("border-danger");
            }
+
+           if (collegeCode.includes(" ")) {
+            $(this).addClass("border-danger");
+            toastr.error("Spaces are not allowed in College Code.");
+        } else {
+            $(this).removeClass("border-danger");
+        }
 
             if(!collegeCode){
                $("#CollegeCode").addClass("border-danger");
