@@ -228,6 +228,13 @@
             contentType: "application/json",
             data: JSON.stringify(model),
             success: function(res){
+                if(res.status==true){
+                    toastr.success(res.message);
+                }else{
+                    toastr.error(res.message);
+                }
+                window.location.href = "@Url.Action("CollegeInfo", "UserAdmin")";
+
             },error: function(err){
             }
         })

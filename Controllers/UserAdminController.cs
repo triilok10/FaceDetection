@@ -68,6 +68,8 @@ namespace FaceDetection.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteCollege([FromBody] CollegeDetails pCollegeDetails)
         {
+            bool status = false;
+            string message = string.Empty;
             CollegeDetails obj = new CollegeDetails();
             try
             {
@@ -83,20 +85,23 @@ namespace FaceDetection.Controllers
 
                     if (obj.Status == true)
                     {
-                        TempData["successMessage"] = obj.ErrMsg;
+                        message = obj.ErrMsg;
+                        status = true;
                     }
                     else
                     {
-                        TempData["errorMessage"] = obj.ErrMsg;
+                        message = obj.ErrMsg;
+                        status = false;
                     }
                 }
-                return RedirectToAction("CollegeInfo", "UserAdmin", obj);
+                return Ok(new { status, message });
             }
             catch (Exception ex)
             {
                 obj.ErrMsg = ex.Message;
-                obj.Status = false;
-                return RedirectToAction("CollegeInfo", "UserAdmin", obj);
+                status = false;
+                message = obj.ErrMsg;
+                return Json(new { status, message });
             }
 
         }
