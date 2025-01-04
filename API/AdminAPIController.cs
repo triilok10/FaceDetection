@@ -320,5 +320,42 @@ namespace FaceDetection.API
             return Ok(obj);
         }
         #endregion
+
+        #region "Get Deleted List"
+        [HttpGet]
+        public IActionResult GetDeletedList()
+        {
+            List<CollegeDetails> deletedList = new List<CollegeDetails>();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(_connectionString))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand("usp_DeletedList", con);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Mode", 1);
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            deletedList.Add(new CollegeDetails
+                            {
+                                CollegeName = rdr.GetString(rdr.GetOrdinal("CollegeName")),
+                                CollegeCode = rdr.GetString(rdr.GetOrdinal("CollegeCode")),
+                                CollegeCity = rdr.GetString(rdr.GetOrdinal("CollegeCity")),
+                                CreatedOn = rdr.GetDateTime(rdr.GetOrdinal("DeletedDate")),
+                                CollegeAdmin = rdr.GetString(rdr.GetOrdinal("CollegeAdmin"))
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Status = false, ErrMsg = ex.Message });
+            }
+            return Ok(deletedList);
+        }
+        #endregion
     }
 }

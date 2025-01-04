@@ -1,0 +1,44 @@
+﻿@model List<FaceDetection.Models.CollegeDetails>
+
+@{
+    ViewData["Title"] = "DeletedList";
+}
+
+<style>
+    .table th, .table td {
+        text-align: center;
+    }
+
+        .table td a {
+            margin: 0 5px;
+        }
+
+</style>
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>College Name</th>
+                <th>College Code</th>
+                <th>Location</th>
+                <th>Created On</th>
+                <th>Admin Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.CollegeName</td>
+                    <td>@item.CollegeCode</td>
+                    <td>@item.CollegeCity</td>
+                    <td>@item.CreatedOn</td>
+                    <td>@item.CollegeAdmin</td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+

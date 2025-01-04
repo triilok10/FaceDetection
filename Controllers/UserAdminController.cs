@@ -234,6 +234,30 @@ namespace FaceDetection.Controllers
         }
         #endregion
 
+        #region "DeletedCollege View"
+        [HttpGet]
+        public async Task<IActionResult> DeletedList()
+        {
+            List<CollegeDetails> lst = new List<CollegeDetails>();
+            try
+            {
+                string apiUrl = baseUrl + "api/AdminAPI/GetDeletedList";
+
+                HttpResponseMessage response = await _httpClient.GetAsync(apiUrl);
+                if (response.IsSuccessStatusCode)
+                {
+                    dynamic resBody = await response.Content.ReadAsStringAsync();
+                    lst = JsonConvert.DeserializeObject<List<CollegeDetails>>(resBody);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return View(lst);
+        }
+
+        #endregion
         public IActionResult Module()
         {
             return View();
