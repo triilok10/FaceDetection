@@ -57,7 +57,7 @@ CREATE TABLE CountryMaster (
 );
 
 --CountryMaster DB Query
-INSERT INTO countryMaster (CountryName) VALUES ('India'),('Others');
+INSERT INTO countryMaster (CountryName) VALUES ('India');
 
 
 Select * from CountryMaster

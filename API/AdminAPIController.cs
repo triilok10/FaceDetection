@@ -121,10 +121,16 @@ namespace FaceDetection.API
                     cmd.Parameters.AddWithValue("@CollegePhone", pCollegeDetails.CollegePhone);
                     cmd.Parameters.AddWithValue("@CollegeWebsite", pCollegeDetails.CollegeWebsite);
                     cmd.Parameters.AddWithValue("@IsCollegeActive", pCollegeDetails.IsCollegeActive);
-                    cmd.ExecuteNonQuery();
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        if (rdr.Read())
+                        {
+                            obj.Status = Convert.ToBoolean(rdr["Status"]);
+                            obj.ErrMsg = Convert.ToString(rdr["ErrMsg"]);
+                        }
+                    }
                 }
-                obj.Status = true;
-                obj.ErrMsg = "Data inserted successfully.";
             }
             catch (Exception ex)
             {
@@ -163,10 +169,16 @@ namespace FaceDetection.API
                     cmd.Parameters.AddWithValue("@CollegePhone", pCollegeDetails.CollegePhone);
                     cmd.Parameters.AddWithValue("@CollegeWebsite", pCollegeDetails.CollegeWebsite);
                     cmd.Parameters.AddWithValue("@IsCollegeActive", pCollegeDetails.IsCollegeActive);
-                    cmd.ExecuteNonQuery();
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        if (rdr.Read())
+                        {
+                            obj.Status = Convert.ToBoolean(rdr["Status"]);
+                            obj.ErrMsg = Convert.ToString(rdr["ErrMsg"]);
+                        }
+                    }
                 }
-                obj.Status = true;
-                obj.ErrMsg = "Data Updated successfully.";
             }
             catch (Exception ex)
             {

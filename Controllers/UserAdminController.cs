@@ -151,18 +151,13 @@ namespace FaceDetection.Controllers
         }
         #endregion
 
-
-        public IActionResult Module()
-        {
-            return View();
-        }
-
-
-
         #region "CollegeAdd"
         [HttpPost]
         public async Task<IActionResult> CollegeAdd(CollegeDetails pCollegeDetails)
         {
+
+
+
             CollegeDetails obj = new CollegeDetails();
             try
             {
@@ -197,14 +192,12 @@ namespace FaceDetection.Controllers
                     else
                     {
                         TempData["errorMessage"] = obj.ErrMsg;
-                        return RedirectToAction("CollegeInfo", "UserAdmin");
+                        return PartialView("College", pCollegeDetails);
                     }
 
                 }
                 else
                 {
-
-
 
                     string url = baseUrl + "api/AdminAPI/InsertCollege";
 
@@ -226,7 +219,7 @@ namespace FaceDetection.Controllers
                     else
                     {
                         TempData["errorMessage"] = obj.ErrMsg;
-                        return RedirectToAction("CollegeInfo", "UserAdmin");
+                        return PartialView("College", pCollegeDetails);
                     }
                 }
 
@@ -239,6 +232,15 @@ namespace FaceDetection.Controllers
 
         }
         #endregion
+
+        public IActionResult Module()
+        {
+            return View();
+        }
+
+
+
+
     }
 
 }
