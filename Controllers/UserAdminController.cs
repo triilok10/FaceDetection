@@ -156,8 +156,6 @@ namespace FaceDetection.Controllers
         public async Task<IActionResult> CollegeAdd(CollegeDetails pCollegeDetails)
         {
 
-
-
             CollegeDetails obj = new CollegeDetails();
             try
             {
@@ -191,8 +189,9 @@ namespace FaceDetection.Controllers
                     }
                     else
                     {
+
                         TempData["errorMessage"] = obj.ErrMsg;
-                        return PartialView("College", pCollegeDetails);
+                        return RedirectToAction("CollegeInfo", "UserAdmin");
                     }
 
                 }
@@ -218,11 +217,13 @@ namespace FaceDetection.Controllers
                     }
                     else
                     {
-                        TempData["errorMessage"] = obj.ErrMsg;
-                        return PartialView("College", pCollegeDetails);
-                    }
-                }
 
+                        TempData["errorMessage"] = obj.ErrMsg;
+                        return RedirectToAction("CollegeInfo", "UserAdmin");
+
+                    }
+
+                }
             }
             catch (Exception ex)
             {
