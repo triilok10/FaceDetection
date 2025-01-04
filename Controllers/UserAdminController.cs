@@ -249,15 +249,17 @@ namespace FaceDetection.Controllers
                     dynamic resBody = await response.Content.ReadAsStringAsync();
                     lst = JsonConvert.DeserializeObject<List<CollegeDetails>>(resBody);
                 }
+                return View(lst);
             }
             catch (Exception ex)
             {
-
+                TempData["errorMessage"] = ex.Message;
+                return View();
             }
-            return View(lst);
-        }
 
+        }
         #endregion
+
         public IActionResult Module()
         {
             return View();

@@ -4,7 +4,28 @@
     ViewData["Title"] = "DeletedList";
 }
 
+@if (TempData["errorMessage"] != null)
+{
+    <script>
+        alert('@TempData["errorMessage"]');
+        toastr.error("@TempData["errorMessage"]");
+    </script>
+}
+@if (TempData["successMessage"] != null)
+{
+    <script>
+        alert('@TempData["successMessage"]');
+        toastr.error("@TempData["errorMessage"]");
+    </script>
+}
+
 <style>
+    h2.bg-primary {
+        font-size: 24px;
+        font-weight: bold;
+        border-radius: 5px;
+    }
+
     .table th, .table td {
         text-align: center;
     }
@@ -13,8 +34,22 @@
             margin: 0 5px;
         }
 
-</style>
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        padding: 10px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
 
+</style>
+<div class="header-container" id="displayNone1">
+    <h2 class="bg-primary text-white py-2 rounded mb-0">College Info</h2>
+</div>
 <div class="table-responsive">
     <table class="table table-bordered">
         <thead class="thead-dark">
@@ -22,7 +57,7 @@
                 <th>College Name</th>
                 <th>College Code</th>
                 <th>Location</th>
-                <th>Created On</th>
+                <th>Deleted On</th>
                 <th>Admin Name</th>
             </tr>
         </thead>

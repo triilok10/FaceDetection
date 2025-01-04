@@ -138,7 +138,7 @@
 
         rows.forEach(function (row) {
             var collegeName = row.cells[0].textContent.toLowerCase();
-            var collegeCode = row.cells[1].Wor.toLowerCase();
+            var collegeCode = row.cells[1].textContent.toLowerCase();
 
             if ((searchCode && collegeCode.includes(searchCode)) || (searchName && collegeName.includes(searchName))) {
                 row.style.display = '';
