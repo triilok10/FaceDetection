@@ -160,6 +160,15 @@
             </div>
         </fieldset>
 
+        @* Action Button *@
+        <div class="mb-3 row">
+            <label class="col-sm-4 col-form-label ">Action</label>
+            <div class="col-sm-8">
+                <a class="btn btn-outline-primary">College Additional</a>
+                <a class="btn btn-outline-primary" href="@Url.Action("CollegeUser","College")?CollegeID=@Model.CollegeID">College User</a>
+                <a class="btn btn-outline-primary">Download Pdf</a>
+            </div>
+        </div>
     }
     else
     {
