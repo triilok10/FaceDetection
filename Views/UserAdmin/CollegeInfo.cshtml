@@ -219,7 +219,8 @@
         if(confirm("Are you sure to delete this College?"));
 
         var model = {
-            CollegeID :CollegeId
+            CollegeID :CollegeId,
+              IsUpdate:true
         };
 
         $.ajax({
@@ -243,12 +244,13 @@
 
     function js_CollegeView(CollegeId){
 
+        debugger;
         var model = {
             CollegeID :CollegeId,
-            IsUpdate:true
+            IsUpdate:false
         };
 
-           if (collegeID == 0 || collegeID <= 0) {
+           if (CollegeId == 0 || CollegeId <= 0) {
             toastr.error("Please pass the correct CollegeID.");
             return false;
         }

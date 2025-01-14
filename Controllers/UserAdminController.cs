@@ -111,6 +111,8 @@ namespace FaceDetection.Controllers
         [HttpPost]
         public async Task<PartialViewResult> College([FromBody] CollegeDetails pCollegeDetails)
         {
+            CollegeDetails obj = new CollegeDetails();
+
             string StateURL = baseUrl + "api/AdminAPI/GetStateList";
             HttpResponseMessage StateResponse = await _httpClient.GetAsync(StateURL);
             if (StateResponse.IsSuccessStatusCode)
@@ -136,7 +138,7 @@ namespace FaceDetection.Controllers
             }
             else
             {
-                CollegeDetails obj = new CollegeDetails();
+
                 string apiURL = baseUrl + $"api/AdminAPI/GetRecord?CollegeID={pCollegeDetails.CollegeID}";
                 HttpResponseMessage getResponse = await _httpClient.GetAsync(apiURL);
                 if (getResponse.IsSuccessStatusCode)
@@ -145,6 +147,8 @@ namespace FaceDetection.Controllers
                     obj = JsonConvert.DeserializeObject<CollegeDetails>(resGetBody);
 
                 }
+                //Set the condition  for the Update or View
+                obj.IsUpdate = pCollegeDetails.IsUpdate;
                 ViewBag.Insert = false;
                 return PartialView(obj);
             }
