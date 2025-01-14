@@ -212,7 +212,7 @@
         });
     }
 
-
+    //Delete College
     function js_CollegeDelete(CollegeId){
 
         debugger;
@@ -236,6 +236,38 @@
                 window.location.href = "@Url.Action("CollegeInfo", "UserAdmin")";
 
             },error: function(err){
+            }
+        })
+
+    }
+
+    function js_CollegeView(CollegeId){
+
+        var model = {
+            CollegeID :CollegeId,
+            IsUpdate:true
+        };
+
+           if (collegeID == 0 || collegeID <= 0) {
+            toastr.error("Please pass the correct CollegeID.");
+            return false;
+        }
+
+        $.ajax({
+            url: "@Url.Action("College", "UserAdmin")",
+            type:"POST",
+            contentType: "application/json",
+            data: JSON.stringify(model),
+            success: function (res) {
+                console.log("Success:", res);
+                $("#displayNone").hide();
+                $("#displayNone1").hide();
+                $("#displayNone2").hide();
+                $("#idAddCollegeName").html(res);
+            },
+            error: function (err) {
+                console.error("Error:", err);
+                toastr.error("An error occurred while editing the college.");
             }
         })
 

@@ -38,25 +38,26 @@
         <h2>College Registration Form</h2>
         <button type="button" class="btn-close close-btn" aria-label="Close" onclick="js_CloseAddCollege()"></button>
     </div>
+    @if (Model.IsUpdate == true)
+    {
 
-    <form asp-controller="UserAdmin" asp-action="CollegeAdd" method="post" onsubmit="return js_ValidateCollegeDetails();">
         <div class="mb-3 row">
             <label asp-for="CollegeName" class="col-sm-4 col-form-label mandatory">Name</label>
             <div class="col-sm-8">
-                <input asp-for="CollegeName" type="text" class="form-control" id="CollegeName">
+                <input asp-for="CollegeName" type="text" class="form-control" id="CollegeName" readonly>
                 <input asp-for="CollegeID" type="hidden" />
             </div>
         </div>
         <div class="mb-3 row">
             <label asp-for="CollegeCode" class="col-sm-4 col-form-label mandatory">College Code</label>
             <div class="col-sm-8">
-                <input asp-for="CollegeCode" type="text" class="form-control" id="CollegeCode">
+                <input asp-for="CollegeCode" type="text" class="form-control" id="CollegeCode" readonly>
             </div>
         </div>
         <div class="mb-3 row">
             <label asp-for="CollegeCity" class="col-sm-4 col-form-label mandatory">City/Location</label>
             <div class="col-sm-8">
-                <input asp-for="CollegeCity" type="text" class="form-control" id="CollegeCity">
+                <input asp-for="CollegeCity" type="text" class="form-control" id="CollegeCity" readonly>
             </div>
         </div>
 
@@ -71,7 +72,7 @@
                     @Html.DropDownListFor(m => m.CountryID,
                              new SelectList(ViewBag.CountryList, "CountryID", "CountryName", Model.CountryID),
                              "Select a country",
-                             new { @class = "form-control", id = "countryDropdown" })
+                             new { @class = "form-control", id = "countryDropdown", disabled = "disabled" })
                 </div>
             </div>
 
@@ -83,7 +84,7 @@
                     @Html.DropDownListFor(m => m.StateID,
                              new SelectList(ViewBag.StateList, "StateID", "StateName", Model.StateID),
                              "Select a State",
-                             new { @class = "form-control", id = "stateDropdown" })
+                             new { @class = "form-control", id = "stateDropdown", disabled = "disabled" })
                 </div>
             </div>
 
@@ -96,7 +97,7 @@
             <div class="mb-3 row">
                 <label asp-for="CollegeCountry" class="col-sm-4 col-form-label mandatory">Country</label>
                 <div class="col-sm-8">
-                    @Html.DropDownList("CountryId", new SelectList(ViewBag.CountryList, "CountryID", "CountryName"), "Select a country", new { @class = "form-control", id = "countryDropdown" })
+                    @Html.DropDownList("CountryId", new SelectList(ViewBag.CountryList, "CountryID", "CountryName"), "Select a country", new { @class = "form-control", id = "countryDropdown", disabled = "disabled" })
                 </div>
             </div>
 
@@ -104,7 +105,7 @@
             <div class="mb-3 row">
                 <label asp-for="CollegeState" class="col-sm-4 col-form-label mandatory">State</label>
                 <div class="col-sm-8">
-                    @Html.DropDownList("StateId", new SelectList(ViewBag.StateList, "StateID", "StateName"), "Select a state", new { @class = "form-control", id = "stateDropdown" })
+                    @Html.DropDownList("StateId", new SelectList(ViewBag.StateList, "StateID", "StateName"), "Select a state", new { @class = "form-control", id = "stateDropdown", disabled = "disabled" })
                 </div>
             </div>
         }
@@ -114,7 +115,7 @@
         <div class="mb-3 row">
             <label asp-for="CollegePinCode" class="col-sm-4 col-form-label mandatory">Pin Code</label>
             <div class="col-sm-8">
-                <input asp-for="CollegePinCode" type="text" class="form-control" id="CollegePinCode">
+                <input asp-for="CollegePinCode" type="text" class="form-control" id="CollegePinCode" readonly>
             </div>
         </div>
 
@@ -122,7 +123,7 @@
         <div class="mb-3 row">
             <label asp-for="CollegeAdmin" class="col-sm-4 col-form-label mandatory">Admin/Incharger Name</label>
             <div class="col-sm-8">
-                <input asp-for="CollegeAdmin" type="text" class="form-control" id="CollegeAdmin">
+                <input asp-for="CollegeAdmin" type="text" class="form-control" id="CollegeAdmin" readonly>
             </div>
         </div>
 
@@ -130,7 +131,7 @@
         <div class="mb-3 row">
             <label asp-for="CollegeMail" class="col-sm-4 col-form-label mandatory">Offical Email</label>
             <div class="col-sm-8">
-                <input asp-for="CollegeMail" type="email" class="form-control" id="CollegeMail">
+                <input asp-for="CollegeMail" type="email" class="form-control" id="CollegeMail" readonly>
             </div>
         </div>
 
@@ -138,7 +139,7 @@
         <div class="mb-3 row">
             <label asp-for="CollegePhone" class="col-sm-4 col-form-label mandatory">Official Phone Number</label>
             <div class="col-sm-8">
-                <input asp-for="CollegePhone" type='tel' class='form-control' id='CollegePhone' pattern='[0-9]{10}'>
+                <input asp-for="CollegePhone" type='tel' class='form-control' id='CollegePhone' pattern='[0-9]{10}' readonly>
                 <small>Format: 1234567890</small>
             </div>
         </div>
@@ -147,7 +148,7 @@
         <div class='mb-3 row'>
             <label asp-for="CollegeWebsite" class='col-sm-4 col-form-label mandatory'>College Website</label>
             <div class='col-sm-8'>
-                <input asp-for="CollegeWebsite" type='url' class='form-control' id='CollegeWebsite' placeholder='https://example.com'>
+                <input asp-for="CollegeWebsite" type='url' class='form-control' id='CollegeWebsite' placeholder='https://example.com' readonly>
             </div>
         </div>
 
@@ -155,13 +156,138 @@
         <fieldset class='mb-3 row'>
             <label asp-for="IsCollegeActive" class='col-sm-4 col-form-label mandatory'>Status</label>
             <div class='col-sm-8'>
-                <input asp-for="IsCollegeActive" type='checkbox' id='IsCollegeActive' class="me-2" />
+                <input asp-for="IsCollegeActive" type='checkbox' id='IsCollegeActive' class="me-2" readonly />
             </div>
         </fieldset>
 
-        <!-- Submit Button -->
-        <button type='submit' class='btn btn-primary'>Submit</button>
-    </form>
+    }
+    else
+    {
+        <form asp-controller="UserAdmin" asp-action="CollegeAdd" method="post" onsubmit="return js_ValidateCollegeDetails();">
+            <div class="mb-3 row">
+                <label asp-for="CollegeName" class="col-sm-4 col-form-label mandatory">Name</label>
+                <div class="col-sm-8">
+                    <input asp-for="CollegeName" type="text" class="form-control" id="CollegeName">
+                    <input asp-for="CollegeID" type="hidden" />
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label asp-for="CollegeCode" class="col-sm-4 col-form-label mandatory">College Code</label>
+                <div class="col-sm-8">
+                    <input asp-for="CollegeCode" type="text" class="form-control" id="CollegeCode">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label asp-for="CollegeCity" class="col-sm-4 col-form-label mandatory">City/Location</label>
+                <div class="col-sm-8">
+                    <input asp-for="CollegeCity" type="text" class="form-control" id="CollegeCity">
+                </div>
+            </div>
+
+            @if (ViewBag.Insert == false)
+            {
+
+                <!-- College Country Dropdown -->
+
+                <div class="mb-3 row">
+                    <label asp-for="CollegeCountry" class="col-sm-4 col-form-label mandatory">Country</label>
+                    <div class="col-sm-8">
+                        @Html.DropDownListFor(m => m.CountryID,
+                                 new SelectList(ViewBag.CountryList, "CountryID", "CountryName", Model.CountryID),
+                                 "Select a country",
+                                 new { @class = "form-control", id = "countryDropdown" })
+                    </div>
+                </div>
+
+                <!-- College State Dropdown -->
+
+                <div class="mb-3 row">
+                    <label asp-for="CollegeState" class="col-sm-4 col-form-label mandatory">State</label>
+                    <div class="col-sm-8">
+                        @Html.DropDownListFor(m => m.StateID,
+                                 new SelectList(ViewBag.StateList, "StateID", "StateName", Model.StateID),
+                                 "Select a State",
+                                 new { @class = "form-control", id = "stateDropdown" })
+                    </div>
+                </div>
+
+
+            }
+            else
+            {
+
+                <!-- College Country Dropdown -->
+                <div class="mb-3 row">
+                    <label asp-for="CollegeCountry" class="col-sm-4 col-form-label mandatory">Country</label>
+                    <div class="col-sm-8">
+                        @Html.DropDownList("CountryId", new SelectList(ViewBag.CountryList, "CountryID", "CountryName"), "Select a country", new { @class = "form-control", id = "countryDropdown" })
+                    </div>
+                </div>
+
+
+                <div class="mb-3 row">
+                    <label asp-for="CollegeState" class="col-sm-4 col-form-label mandatory">State</label>
+                    <div class="col-sm-8">
+                        @Html.DropDownList("StateId", new SelectList(ViewBag.StateList, "StateID", "StateName"), "Select a state", new { @class = "form-control", id = "stateDropdown" })
+                    </div>
+                </div>
+            }
+
+
+            <!-- College PinCode -->
+            <div class="mb-3 row">
+                <label asp-for="CollegePinCode" class="col-sm-4 col-form-label mandatory">Pin Code</label>
+                <div class="col-sm-8">
+                    <input asp-for="CollegePinCode" type="text" class="form-control" id="CollegePinCode">
+                </div>
+            </div>
+
+            <!-- College Admin Name -->
+            <div class="mb-3 row">
+                <label asp-for="CollegeAdmin" class="col-sm-4 col-form-label mandatory">Admin/Incharger Name</label>
+                <div class="col-sm-8">
+                    <input asp-for="CollegeAdmin" type="text" class="form-control" id="CollegeAdmin">
+                </div>
+            </div>
+
+            <!-- College Email -->
+            <div class="mb-3 row">
+                <label asp-for="CollegeMail" class="col-sm-4 col-form-label mandatory">Offical Email</label>
+                <div class="col-sm-8">
+                    <input asp-for="CollegeMail" type="email" class="form-control" id="CollegeMail">
+                </div>
+            </div>
+
+            <!-- College Phone Number -->
+            <div class="mb-3 row">
+                <label asp-for="CollegePhone" class="col-sm-4 col-form-label mandatory">Official Phone Number</label>
+                <div class="col-sm-8">
+                    <input asp-for="CollegePhone" type='tel' class='form-control' id='CollegePhone' pattern='[0-9]{10}'>
+                    <small>Format: 1234567890</small>
+                </div>
+            </div>
+
+            <!-- College Website -->
+            <div class='mb-3 row'>
+                <label asp-for="CollegeWebsite" class='col-sm-4 col-form-label mandatory'>College Website</label>
+                <div class='col-sm-8'>
+                    <input asp-for="CollegeWebsite" type='url' class='form-control' id='CollegeWebsite' placeholder='https://example.com'>
+                </div>
+            </div>
+
+            <!-- College Status Field -->
+            <fieldset class='mb-3 row'>
+                <label asp-for="IsCollegeActive" class='col-sm-4 col-form-label mandatory'>Status</label>
+                <div class='col-sm-8'>
+                    <input asp-for="IsCollegeActive" type='checkbox' id='IsCollegeActive' class="me-2" />
+                </div>
+            </fieldset>
+
+            <!-- Submit Button -->
+            <button type='submit' class='btn btn-primary'>Submit</button>
+        </form>
+    }
+
 </div>
 
 
