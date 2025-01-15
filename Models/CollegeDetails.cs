@@ -34,5 +34,10 @@
         public string? ErrMsg { get; set; }
         public bool? IsUpdate { get; set; }
         public DateTime? CreatedOn { get; set; }
+
+        public string? Username { get; set; }
+        public string? Password { get; set; }
+        public bool? IsSystemUser { get; set; }
+        public bool? IsActive { get; set; }
     }
 }

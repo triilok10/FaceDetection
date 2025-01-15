@@ -1,7 +1,110 @@
-﻿
+﻿@using FaceDetection
+@model CollegeDetails
 @{
     ViewData["Title"] = "CollegeUser";
 }
 
-<h1>CollegeUser</h1>
+
+
+
+<div class="container mt-5">
+    <h1 class="text-center">College User Management</h1>
+
+    <form method="post" class="mb-4">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label asp-for="CollegeID"></label>
+                <input asp-for="CollegeID" class="form-control" />
+                <span asp-validation-for="CollegeID" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="CollegeName"></label>
+                <input asp-for="CollegeName" class="form-control" />
+                <span asp-validation-for="CollegeName" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="CollegeCode"></label>
+                <input asp-for="CollegeCode" class="form-control" />
+                <span asp-validation-for="CollegeCode" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label asp-for="Username"></label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" type="password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="IsSystemUser"></label>
+                <input asp-for="IsSystemUser" type="checkbox" />
+                Is System User
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label asp-for="IsActive"></label>
+                <input asp-for="IsActive" type="checkbox" />
+                Is Active
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+
+    <h2>Existing College Users</h2>
+    <table class="table table-bordered table-responsive">
+        <thead>
+            <tr>
+                <th>College ID</th>
+                <th>College Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in ViewBag.CollegeList as List<FaceDetection.Models.CollegeDetails>)
+            {
+                <tr>
+                    <td>@user.CollegeID</td>
+                    <td>@user.CollegeName</td>
+                    <td>
+                        <a asp-page-handler="Edit" asp-route-id="@user.CollegeID" class="btn btn-warning btn-sm">Edit</a> |
+                        <a asp-page-handler="Delete" asp-route-id="@user.CollegeID" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+</div>
+
+<style>
+
+    body {
+        background-color: #f8f9fa;
+    }
+
+    h1, h2 {
+        color: #343a40;
+    }
+
+    .table {
+        margin-top: 20px;
+    }
+
+    .btn {
+        margin-right: 5px;
+    }
+</style>
 
