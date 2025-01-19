@@ -81,6 +81,24 @@ namespace FaceDetection.API
                     con.Open();
                     SqlCommand cmd = new SqlCommand("usp_CollegeUser", con);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@Mode", 2);
+                    cmd.Parameters.AddWithValue("@CollegeID", pCollegeDetails.CollegeID);
+                    cmd.Parameters.AddWithValue("@Username", pCollegeDetails.Username);
+                    cmd.Parameters.AddWithValue("@Password", pCollegeDetails.Password);
+                    cmd.Parameters.AddWithValue("@IsSystemUser", pCollegeDetails.IsSystemUser);
+                    cmd.Parameters.AddWithValue("@IsActive", pCollegeDetails.IsActive);
+                    cmd.Parameters.AddWithValue("@CreatedBy", pCollegeDetails.CreatedBy);
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            obj.ErrMsg = Convert.ToString(rdr["Message"]);
+                            obj.StatusCode = Convert.ToInt32(rdr["StatusCode"]);
+                            obj.Status = true;
+                        }
+                    }
                 }
             }
             catch (Exception ex)

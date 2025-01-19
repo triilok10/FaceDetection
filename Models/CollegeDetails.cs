@@ -31,9 +31,11 @@
         public string? StateName { get; set; }
         public int? StateID { get; set; }
         public bool? Status { get; set; }
+        public int? StatusCode { get; set; }
         public string? ErrMsg { get; set; }
         public bool? IsUpdate { get; set; }
         public DateTime? CreatedOn { get; set; }
+        public int? CreatedBy { get; set; }
 
         public string? Username { get; set; }
         public string? Password { get; set; }

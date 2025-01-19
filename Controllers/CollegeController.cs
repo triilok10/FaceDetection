@@ -1,11 +1,14 @@
 ﻿using FaceDetection.AppCode;
 using FaceDetection.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
 using System.Text;
 
 namespace FaceDetection.Controllers
 {
+    [ServiceFilter(typeof(SessionAdmin))]
+
     public class CollegeController : Controller
     {
 
@@ -46,6 +49,7 @@ namespace FaceDetection.Controllers
                 {
                     string APIURL = baseUrl + "api/CollegeAPI/CollegeUserPost";
 
+                    pCollegeDetails.CreatedBy = _clsSession.GetInt32("UserID");
                     string Json = JsonConvert.SerializeObject(pCollegeDetails);
                     StringContent con = new StringContent(Json, Encoding.UTF8, "application/json");
 
