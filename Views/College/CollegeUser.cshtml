@@ -7,21 +7,21 @@
 <div class="container mt-5">
     <h1 class="text-center mb-4">College User Management</h1>
 
-    <form method="post" class="mb-4">
+    <form asp-controller="College" asp-action="CollegeUser" method="post" class="mb-4" onsubmit="return js_ValidateCollegeUser();">
         <div class="row mb-3">
             <div class="form-group col-md-4 col-sm-12">
                 <label asp-for="CollegeID" class="font-weight-bold"></label>
-                <input asp-for="CollegeID" class="form-control" />
+                <input asp-for="CollegeID" class="form-control" readonly />
                 <span asp-validation-for="CollegeID" class="text-danger"></span>
             </div>
             <div class="form-group col-md-4 col-sm-12">
                 <label asp-for="CollegeName" class="font-weight-bold"></label>
-                <input asp-for="CollegeName" class="form-control" />
+                <input asp-for="CollegeName" class="form-control" readonly />
                 <span asp-validation-for="CollegeName" class="text-danger"></span>
             </div>
             <div class="form-group col-md-4 col-sm-12">
                 <label asp-for="CollegeCode" class="font-weight-bold"></label>
-                <input asp-for="CollegeCode" class="form-control" />
+                <input asp-for="CollegeCode" class="form-control" readonly />
                 <span asp-validation-for="CollegeCode" class="text-danger"></span>
             </div>
         </div>
@@ -29,12 +29,12 @@
         <div class="row mb-3">
             <div class="form-group col-md-4 col-sm-12">
                 <label asp-for="Username" class="font-weight-bold"></label>
-                <input asp-for="Username" class="form-control" />
+                <input asp-for="Username" class="form-control" id="Username" />
                 <span asp-validation-for="Username" class="text-danger"></span>
             </div>
             <div class="form-group col-md-4 col-sm-12">
                 <label asp-for="Password" class="font-weight-bold"></label>
-                <input asp-for="Password" type="password" class="form-control" />
+                <input asp-for="Password" type="password" class="form-control" id="Password" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group col-md-4 d-flex align-items-center">
@@ -121,3 +121,27 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+<script type="text/javascript">
+
+       function js_ValidateCollegeUser(){
+
+       var Username = $("#Username").val();
+       var Password = $("#Password").val();
+
+
+       if(!Username)
+       {
+         toastr.error("Please enter the Username.");
+         return false;
+       }
+
+       if(!Password)
+       {
+         toastr.error("Please enter the Password.");
+         return false;
+       }
+
+       return true;
+    }
+
+</script>

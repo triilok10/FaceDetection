@@ -40,20 +40,56 @@ namespace FaceDetection.API
                 {
                     con.Open();
                     SqlCommand cmd = new SqlCommand("usp_CollegeUser", con);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Mode", 1);
+                    cmd.Parameters.AddWithValue("@CollegeID", pCollegeDetails.CollegeID);
 
-
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            obj.CollegeID = Convert.ToInt32(rdr["CollegeID"]);
+                            obj.CollegeName = Convert.ToString(rdr["CollegeName"]);
+                            obj.CollegeCode = Convert.ToString(rdr["CollegeCode"]);
+                            obj.Status = true;
+                        }
+                    }
 
                 }
             }
-            catch (Exception ex) { }
-
-
-
+            catch (Exception ex)
+            {
+                obj.ErrMsg = ex.Message;
+                obj.Status = false;
+            }
             return obj;
 
         }
         #endregion
 
+        #region "POST CollegeUserPost"
+        [HttpPost]
+        public CollegeDetails CollegeUserPost([FromBody] CollegeDetails pCollegeDetails)
+        {
+            CollegeDetails obj = new CollegeDetails();
 
+            try
+            {
+                using (SqlConnection con = new SqlConnection(_connectionString))
+                {
+
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand("usp_CollegeUser", con);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                }
+            }
+            catch (Exception ex)
+            {
+                obj.ErrMsg = ex.Message;
+                obj.Status = false;
+            }
+            return pCollegeDetails;
+        }
+        #endregion
     }
 }
