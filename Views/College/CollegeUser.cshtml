@@ -5,10 +5,18 @@
     var i = 1;
 }
 
+@if (ViewBag.errorMessage != null)
+{
+    <script>
+        alert('@Html.Raw(ViewBag.errorMessage)');
+    </script>
+}
+
+
 <div class="container mt-5">
     <h1 class="text-center mb-4">College User Management</h1>
 
-    <form asp-controller="College" asp-action="CollegeUser" method="post" class="mb-4" onsubmit="return js_ValidateCollegeUser();">
+    <form asp-controller="College" asp-action="InsertCollegeUser" method="post" class="mb-4" onsubmit="return js_ValidateCollegeUser();">
         <div class="row mb-3">
             <div class="form-group col-md-4 col-sm-12">
                 <label asp-for="CollegeID" class="font-weight-bold"></label>

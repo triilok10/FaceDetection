@@ -38,12 +38,68 @@ namespace FaceDetection.Controllers
 
         #region "GET/POST CollegeUser"
 
-        [HttpGet, HttpPost]
-        public async Task<IActionResult> CollegeUser(CollegeDetails pCollegeDetails)
+        [HttpGet]
+        public async Task<IActionResult> CollegeUser(int CollegeID)
         {
             try
             {
-                // Check if we are posting data (creating a new user)
+                CollegeDetails pCollegeDetails = new CollegeDetails();
+                pCollegeDetails.CollegeID = CollegeID;
+                if (pCollegeDetails.CollegeID <= 0)
+                {
+                    return RedirectToAction("CollegeInfo", "UserAdmin", new { errorMsg = "Please select the College" });
+                }
+
+
+                string apiUrl = $"{baseUrl}api/CollegeAPI/CollegeUser";
+                var jsonContent = JsonConvert.SerializeObject(pCollegeDetails);
+                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+
+                var getResponse = await _httpClient.PostAsync(apiUrl, content);
+                if (getResponse.IsSuccessStatusCode)
+                {
+                    var responseBody = await getResponse.Content.ReadAsStringAsync();
+                    var obj = JsonConvert.DeserializeObject<CollegeDetails>(responseBody);
+
+                    // Get list of college users
+                    string apiGetUsersUrl = $"{baseUrl}api/CollegeAPI/GetCollegeUser?CollegeID={pCollegeDetails.CollegeID}";
+                    var listResponse = await _httpClient.GetAsync(apiGetUsersUrl);
+
+                    if (listResponse.IsSuccessStatusCode)
+                    {
+                        var listBody = await listResponse.Content.ReadAsStringAsync();
+                        List<CollegeDetails> lstCollegeUsers = JsonConvert.DeserializeObject<List<CollegeDetails>>(listBody);
+
+                        if (lstCollegeUsers.Count > 0)
+                        {
+                            ViewBag.CollegeList = lstCollegeUsers;
+                        }
+                    }
+
+                    if (obj.Status == true)
+                    {
+                        return View(obj);
+                    }
+                    else
+                    {
+                        return View();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("CollegeInfo", "UserAdmin", new { errorMsg = "An error occurred while processing your request." });
+            }
+            return View();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> InsertCollegeUser(CollegeDetails pCollegeDetails)
+        {
+            try
+            {
                 if (!string.IsNullOrWhiteSpace(pCollegeDetails.Username) && !string.IsNullOrWhiteSpace(pCollegeDetails.Password))
                 {
                     // Prepare to post the data
@@ -61,47 +117,12 @@ namespace FaceDetection.Controllers
 
                         if (obj.Status == true)
                         {
-                            return View(obj);
-                        }
-                    }
-                }
-                else // If not posting, we are getting data
-                {
-                    if (pCollegeDetails.CollegeID <= 0)
-                    {
-                        return RedirectToAction("CollegeInfo", "UserAdmin", new { errorMsg = "Please select the College" });
-                    }
-
-
-                    string apiUrl = $"{baseUrl}api/CollegeAPI/CollegeUser";
-                    var jsonContent = JsonConvert.SerializeObject(pCollegeDetails);
-                    var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-
-
-                    var getResponse = await _httpClient.PostAsync(apiUrl, content);
-                    if (getResponse.IsSuccessStatusCode)
-                    {
-                        var responseBody = await getResponse.Content.ReadAsStringAsync();
-                        var obj = JsonConvert.DeserializeObject<CollegeDetails>(responseBody);
-
-                        // Get list of college users
-                        string apiGetUsersUrl = $"{baseUrl}api/CollegeAPI/GetCollegeUser?CollegeID={pCollegeDetails.CollegeID}";
-                        var listResponse = await _httpClient.GetAsync(apiGetUsersUrl);
-
-                        if (listResponse.IsSuccessStatusCode)
-                        {
-                            var listBody = await listResponse.Content.ReadAsStringAsync();
-                            List<CollegeDetails> lstCollegeUsers = JsonConvert.DeserializeObject<List<CollegeDetails>>(listBody);
-
-                            if (lstCollegeUsers.Count > 0)
+                            if (obj.StatusCode == 2)
                             {
-                                ViewBag.CollegeList = lstCollegeUsers;
+                                ViewBag.errorMessage = obj.ErrMsg;
                             }
-                        }
 
-                        if (obj.Status == true)
-                        {
-                            return View(obj);
+                            return RedirectToAction("CollegeUser", "College", new { CollegeID = pCollegeDetails.CollegeID });
                         }
                     }
                 }
@@ -111,7 +132,8 @@ namespace FaceDetection.Controllers
                 return RedirectToAction("CollegeInfo", "UserAdmin", new { errorMsg = "An error occurred while processing your request." });
             }
 
-            return RedirectToAction("CollegeInfo", "UserAdmin");
+            return RedirectToAction("CollegeUser", "College", new { CollegeID = pCollegeDetails.CollegeID });
+
         }
 
         #endregion

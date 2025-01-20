@@ -153,7 +153,7 @@ namespace FaceDetection.API
                 obj.ErrMsg = ex.Message;
                 obj.Status = false;
             }
-            return pCollegeDetails;
+            return obj;
         }
         #endregion
     }
