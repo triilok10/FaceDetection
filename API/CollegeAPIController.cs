@@ -67,6 +67,53 @@ namespace FaceDetection.API
         }
         #endregion
 
+        #region "GET LIST CollegeUser"
+        [HttpGet]
+        public List<CollegeDetails> GetCollegeUser(int CollegeID)
+        {
+            List<CollegeDetails> lstCollegeDetails = new List<CollegeDetails>();
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(_connectionString))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand("usp_CollegeUser", con))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@Mode", 3);
+                        cmd.Parameters.AddWithValue("@CollegeID", CollegeID);
+
+                        using (SqlDataReader rdr = cmd.ExecuteReader())
+                        {
+                            while (rdr.Read())
+                            {
+                                lstCollegeDetails.Add(new CollegeDetails
+                                {
+                                    IsActive = Convert.ToBoolean(rdr["IsActive"]),
+                                    Username = Convert.ToString(rdr["Username"]),
+                                    Password = Convert.ToString(rdr["Password"])
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new Exception("An error occurred while retrieving college users.", sqlEx);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An unexpected error occurred.", ex);
+            }
+
+            return lstCollegeDetails;
+        }
+        #endregion
+
+
         #region "POST CollegeUserPost"
         [HttpPost]
         public CollegeDetails CollegeUserPost([FromBody] CollegeDetails pCollegeDetails)

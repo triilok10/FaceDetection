@@ -2,6 +2,7 @@
 @model CollegeDetails
 @{
     ViewData["Title"] = "CollegeUser";
+    var i = 1;
 }
 
 <div class="container mt-5">
@@ -51,15 +52,17 @@
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
     </form>
-
+    <h2>Existing College Users</h2>
     @if (ViewBag.CollegeList != null)
     {
-        <h2>Existing College Users</h2>
+
         <table class="table table-bordered table-responsive mt-4">
             <thead>
                 <tr>
-                    <th>College ID</th>
-                    <th>College Name</th>
+                    <th>S No</th>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Is Active</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -67,16 +70,27 @@
                 @foreach (var user in ViewBag.CollegeList as List<FaceDetection.Models.CollegeDetails>)
                 {
                     <tr>
-                        <td>@user.CollegeID</td>
-                        <td>@user.CollegeName</td>
+                        <td>@i</td>
+                        <td>@user.Username</td>
+                        <td>@user.Password</td>
+                        <td>@user.IsActive</td>
                         <td>
                             <a asp-page-handler="Edit" asp-route-id="@user.CollegeID" class="btn btn-warning btn-sm">Edit</a> |
                             <a asp-page-handler="Delete" asp-route-id="@user.CollegeID" class="btn btn-danger btn-sm">Delete</a>
                         </td>
                     </tr>
+                    @@i++;
                 }
             </tbody>
         </table>
+    }
+    else
+    {
+        <div class="table table-bordered table-responsive mt-4">
+
+            <p class="text-center">No record found!</p>
+
+        </div>
     }
 </div>
 

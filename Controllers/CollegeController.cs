@@ -43,49 +43,61 @@ namespace FaceDetection.Controllers
         {
             try
             {
-                CollegeDetails obj = new CollegeDetails();
-                //To Post the Data
+                // Check if we are posting data (creating a new user)
                 if (!string.IsNullOrWhiteSpace(pCollegeDetails.Username) && !string.IsNullOrWhiteSpace(pCollegeDetails.Password))
                 {
-                    string APIURL = baseUrl + "api/CollegeAPI/CollegeUserPost";
-
+                    // Prepare to post the data
+                    string apiUrl = $"{baseUrl}api/CollegeAPI/CollegeUserPost";
                     pCollegeDetails.CreatedBy = _clsSession.GetInt32("UserID");
-                    string Json = JsonConvert.SerializeObject(pCollegeDetails);
-                    StringContent con = new StringContent(Json, Encoding.UTF8, "application/json");
+                    var jsonContent = JsonConvert.SerializeObject(pCollegeDetails);
+                    var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-                    HttpResponseMessage res = await _httpClient.PostAsync(APIURL, con);
-
-                    if (res.IsSuccessStatusCode)
+                    // Send POST request
+                    var postResponse = await _httpClient.PostAsync(apiUrl, content);
+                    if (postResponse.IsSuccessStatusCode)
                     {
-                        dynamic resBody = await res.Content.ReadAsStringAsync();
-                        obj = JsonConvert.DeserializeObject<CollegeDetails>(resBody);
+                        var responseBody = await postResponse.Content.ReadAsStringAsync();
+                        var obj = JsonConvert.DeserializeObject<CollegeDetails>(responseBody);
 
                         if (obj.Status == true)
                         {
                             return View(obj);
                         }
                     }
-
                 }
-                else  //To GET the Data
+                else // If not posting, we are getting data
                 {
-
                     if (pCollegeDetails.CollegeID <= 0)
                     {
-                        obj.ErrMsg = "Please select the College";
-                        obj.Status = false;
-                        return RedirectToAction("CollegeInfo", "UserAdmin");
+                        return RedirectToAction("CollegeInfo", "UserAdmin", new { errorMsg = "Please select the College" });
                     }
 
-                    string APIURL = baseUrl + "api/CollegeAPI/CollegeUser";
-                    string Json = JsonConvert.SerializeObject(pCollegeDetails);
-                    StringContent con = new StringContent(Json, Encoding.UTF8, "application/json");
 
-                    HttpResponseMessage res = await _httpClient.PostAsync(APIURL, con);
-                    if (res.IsSuccessStatusCode)
+                    string apiUrl = $"{baseUrl}api/CollegeAPI/CollegeUser";
+                    var jsonContent = JsonConvert.SerializeObject(pCollegeDetails);
+                    var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+
+                    var getResponse = await _httpClient.PostAsync(apiUrl, content);
+                    if (getResponse.IsSuccessStatusCode)
                     {
-                        dynamic resBody = await res.Content.ReadAsStringAsync();
-                        obj = JsonConvert.DeserializeObject<CollegeDetails>(resBody);
+                        var responseBody = await getResponse.Content.ReadAsStringAsync();
+                        var obj = JsonConvert.DeserializeObject<CollegeDetails>(responseBody);
+
+                        // Get list of college users
+                        string apiGetUsersUrl = $"{baseUrl}api/CollegeAPI/GetCollegeUser?CollegeID={pCollegeDetails.CollegeID}";
+                        var listResponse = await _httpClient.GetAsync(apiGetUsersUrl);
+
+                        if (listResponse.IsSuccessStatusCode)
+                        {
+                            var listBody = await listResponse.Content.ReadAsStringAsync();
+                            List<CollegeDetails> lstCollegeUsers = JsonConvert.DeserializeObject<List<CollegeDetails>>(listBody);
+
+                            if (lstCollegeUsers.Count > 0)
+                            {
+                                ViewBag.CollegeList = lstCollegeUsers;
+                            }
+                        }
 
                         if (obj.Status == true)
                         {
@@ -96,17 +108,15 @@ namespace FaceDetection.Controllers
             }
             catch (Exception ex)
             {
-
-
+                return RedirectToAction("CollegeInfo", "UserAdmin", new { errorMsg = "An error occurred while processing your request." });
             }
-
-
-
 
             return RedirectToAction("CollegeInfo", "UserAdmin");
         }
 
         #endregion
+
+
 
 
     }
