@@ -1,11 +1,9 @@
 ﻿using FaceDetection.AppCode;
 using FaceDetection.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.Net.Http;
 using System.Text;
+using Codaxy.WkHtmlToPdf;
 
 namespace FaceDetection.Controllers
 {
@@ -269,7 +267,39 @@ namespace FaceDetection.Controllers
             return View();
         }
 
+        #region "Download PDF"
+        [HttpGet]
+        [HttpGet]
+        public IActionResult DownloadPDF(string html)
+        {
+            // Define the PDF document and conversion settings
+            var document = new PdfDocument
+            {
+                Html = html,
+                PaperType = PaperTypes.A4
+            };
 
+            var output = new PdfOutput
+            {
+                OutputStream = new MemoryStream()
+            };
+
+            try
+            {
+
+                PdfConvert.ConvertHtmlToPdf(document, output);
+
+                // Return the PDF file as a download
+                var pdfBytes = ((MemoryStream)output.OutputStream).ToArray();
+                return File(pdfBytes, "application/pdf", "download.pdf");
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions (e.g., wkhtmltopdf not found or conversion failed)
+                return BadRequest($"Error generating PDF: {ex.Message}");
+            }
+        }
+        #endregion
 
 
     }

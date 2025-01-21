@@ -166,7 +166,7 @@
             <div class="col-sm-8">
                 <a class="btn btn-outline-primary">College Additional</a>
                 <a class="btn btn-outline-primary" href="@Url.Action("CollegeUser","College")?CollegeID=@Model.CollegeID">College User</a>
-                <a class="btn btn-outline-primary">Download Pdf</a>
+                <a class="btn btn-outline-primary" href="js_DownloadPDF();">Download Pdf</a>
             </div>
         </div>
     }
@@ -512,5 +512,31 @@
 
            return true;
        }
+
+
+     function js_DownloadPDF() {
+        var displanyAddCollege = document.getElementById('displanyAddCollege').innerHTML; // Get inner HTML
+
+        $.ajax({
+            url: "@Url.Action("DownloadPDF", "UserAdmin")",
+            type: "GET",
+            data: {
+                html: displanyAddCollege
+            },
+            success: function (res) {
+
+
+                var blob = new Blob([res], { type: 'application/pdf' });
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = 'download.pdf';
+                link.click();
+            },
+            error: function (err) {
+                console.error("Error generating PDF:", err);
+            }
+        });
+    }
+
 
 </script>
