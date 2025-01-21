@@ -269,7 +269,6 @@ namespace FaceDetection.Controllers
 
         #region "Download PDF"
         [HttpGet]
-        [HttpGet]
         public IActionResult DownloadPDF(string html)
         {
             // Define the PDF document and conversion settings
