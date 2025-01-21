@@ -40,24 +40,50 @@ namespace FaceDetection.API
                     cmd.Parameters.AddWithValue("@UserName", pLoginCategory.UserName);
                     cmd.Parameters.AddWithValue("@UserPassword", pLoginCategory.UserPassword);
 
-                    using (SqlDataReader rdr = cmd.ExecuteReader())
-                    {
-                        if (rdr.Read())
-                        {
-                            obj.AdminLoginID = Convert.ToInt32(rdr["AdminLoginID"]);
-                            obj.AdminLoginCode = Convert.ToString(rdr["AdminLoginCode"]);
-                            obj.UserName = Convert.ToString(rdr["UserName"]);
-                            obj.UserPassword = Convert.ToString(rdr["Password"]);
-                            obj.IsSystemUser = Convert.ToBoolean(rdr["IsSystemUser"]);
-                            obj.UserCategoryString = Convert.ToString(userCategoryValue);
-                            obj.IsSuccess = true;
-                        }
-                        else
-                        {
-                            obj.IsSuccess = false;
-                        }
 
+                    if (userCategoryValue == 1)
+                    {
+                        using (SqlDataReader rdr = cmd.ExecuteReader())
+                        {
+                            if (rdr.Read())
+                            {
+                                obj.AdminLoginID = Convert.ToInt32(rdr["AdminLoginID"]);
+                                obj.AdminLoginCode = Convert.ToString(rdr["AdminLoginCode"]);
+                                obj.UserName = Convert.ToString(rdr["UserName"]);
+                                obj.UserPassword = Convert.ToString(rdr["Password"]);
+                                obj.IsSystemUser = Convert.ToBoolean(rdr["IsSystemUser"]);
+                                obj.UserCategoryString = Convert.ToString(userCategoryValue);
+                                obj.IsSuccess = true;
+                            }
+                            else
+                            {
+                                obj.IsSuccess = false;
+                            }
+
+                        }
                     }
+                    if (userCategoryValue == 2)
+                    {
+                        using (SqlDataReader rdr = cmd.ExecuteReader())
+                        {
+                            if (rdr.Read())
+                            {
+                                obj.CollegeID = Convert.ToInt32(rdr["CollegeID"]);
+                                obj.CollegeCode = Convert.ToString(rdr["CollegeCode"]);
+                                obj.UserName = Convert.ToString(rdr["Username"]);
+                                obj.UserPassword = Convert.ToString(rdr["Password"]);
+                                obj.IsSystemUser = Convert.ToBoolean(rdr["IsSystemUser"]);
+                                obj.UserCategoryString = Convert.ToString(userCategoryValue);
+                                obj.IsSuccess = true;
+                            }
+                            else
+                            {
+                                obj.IsSuccess = false;
+                            }
+
+                        }
+                    }
+
                 }
             }
             catch (Exception ex)

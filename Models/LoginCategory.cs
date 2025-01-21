@@ -15,8 +15,12 @@
         //AdminLoginCode
         public string? AdminLoginCode { get; set; }
         //AdminLoginID
-        public int? AdminLoginID { get; set; }
+        public int? AdminLoginID { get; set; } = 0;
         public bool? IsSuccess { get; set; } = false;
+        //CollegeCode 
+        public string? CollegeCode { get; set; } = "";
+        //CollegeID
+        public int? CollegeID { get; set; } = 0;
     }
 
     public enum UserLogin

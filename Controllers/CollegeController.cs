@@ -119,7 +119,7 @@ namespace FaceDetection.Controllers
                         {
                             if (obj.StatusCode == 2)
                             {
-                                ViewBag.errorMessage = obj.ErrMsg;
+                                TempData["errorMessage"] = obj.ErrMsg;
                             }
 
                             return RedirectToAction("CollegeUser", "College", new { CollegeID = pCollegeDetails.CollegeID });

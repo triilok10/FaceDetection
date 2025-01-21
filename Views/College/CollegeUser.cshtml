@@ -5,10 +5,10 @@
     var i = 1;
 }
 
-@if (ViewBag.errorMessage != null)
+@if (TempData["errorMessage"] != null)
 {
     <script>
-        alert('@Html.Raw(ViewBag.errorMessage)');
+        alert('@Html.Raw(TempData["errorMessage"])');
     </script>
 }
 

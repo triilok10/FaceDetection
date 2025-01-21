@@ -77,27 +77,38 @@ namespace FaceDetection.Controllers
 
                     if (obj.IsSuccess == true)
                     {
-                        var UserID = (int)obj.AdminLoginID;
-                        string Username = obj.UserName;
-                        string LoginType = obj.UserCategoryString;
+                        int UserID = 0;
+                        UserID = (int)obj.AdminLoginID;
 
+                        int CollegeID = 0;
+                        CollegeID = (int)obj.CollegeID;
+
+                        string CollegeCode = "";
+                        CollegeCode = (string)obj.CollegeCode;
+
+
+                        string Username = (string)obj.UserName;
+                        int LoginType = Convert.ToInt32(obj.UserCategoryString);
+
+                        _clsSession.SetInt32("CollegeID", CollegeID);
                         _clsSession.SetInt32("UserID", UserID);
                         _clsSession.SetString("UserName", Username);
-                        _clsSession.SetString("LoginType", LoginType);
+                        _clsSession.SetString("CollegeCode", CollegeCode);
+                        _clsSession.SetInt32("LoginType", LoginType);
 
-                        if (UserID == 1)
+                        if (LoginType == 1)
                         {
                             return RedirectToAction("UserAdmin", "User");
                         }
-                        if (UserID == 2)
+                        if (LoginType == 2)
                         {
                             return RedirectToAction("UserCollege", "User");
                         }
-                        if (UserID == 3)
+                        if (LoginType == 3)
                         {
                             return RedirectToAction("UserTeacher", "User");
                         }
-                        if (UserID == 4)
+                        if (LoginType == 4)
                         {
                             return RedirectToAction("UserStudent", "User");
                         }
