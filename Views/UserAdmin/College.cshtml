@@ -166,7 +166,7 @@
             <div class="col-sm-8">
                 <a class="btn btn-outline-primary">College Additional</a>
                 <a class="btn btn-outline-primary" href="@Url.Action("CollegeUser","College")?CollegeID=@Model.CollegeID">College User</a>
-                <a class="btn btn-outline-primary" href="js_DownloadPDF();">Download Pdf</a>
+                <a class="btn btn-outline-primary" onclick="js_DownloadPDF();">Download Pdf</a>
             </div>
         </div>
     }
@@ -304,218 +304,221 @@
 <script type="text/javascript">
 
 
-       $(document).ready(function() {
+           $(document).ready(function() {
 
     @* Validation for the College Code *@
-        $("#CollegeCode").on("keydown", function(event) {
-            if (event.key === " ") {
-                event.preventDefault();
+            $("#CollegeCode").on("keydown", function(event) {
+                if (event.key === " ") {
+                    event.preventDefault();
+                    $(this).addClass("border-danger");
+                    toastr.error("Spaces are not allowed in College Code.");
+                } else {
+                    $(this).removeClass("border-danger");
+                }
+            });
+
+    @* Validation for the College Phone *@
+            $("#CollegePhone").on("keydown", function(event) {
+                var collegePhone = $(this).val();
+
+                // Allow only numeric keys (0-9), backspace, tab, and delete
+                if (!((event.key >= '0' && event.key <= '9') ||
+                       event.key === "Backspace" ||
+                       event.key === "Tab" ||
+                       event.key === "Delete")) {
+                    event.preventDefault();
+                    $(this).addClass("border-danger");
+                    toastr.error("Only numbers are allowed in the College Phone Number.");
+                } else if (collegePhone.length >= 10 && event.key !== "Backspace") {
+                    event.preventDefault();
+                    $(this).addClass("border-danger");
+                    toastr.error("You can only enter up to 10 digits.");
+                } else {
+                    $(this).removeClass("border-danger");
+                }
+            });
+
+    @* Additional validation on blur *@
+            $("#CollegePhone").on("blur", function() {
+                var collegePhone = $(this).val();
+
+                if (!collegePhone || collegePhone.length !== 10) {
+                    $(this).addClass("border-danger");
+                    toastr.error("Please enter a valid College Phone/Mobile number (10 digits).");
+                } else {
+                    $(this).removeClass("border-danger");
+                }
+            });
+
+    @* Validation for the College Pin Code *@
+            $("#CollegePinCode").on("keydown", function(event) {
+                var pinCode = $(this).val();
+
+                if (!((event.key >= '0' && event.key <= '9') ||
+                       event.key === "Backspace" ||
+                       event.key === "Tab" ||
+                       event.key === "Delete")) {
+                    event.preventDefault();
+                    $(this).addClass("border-danger");
+                    toastr.error("Only numbers are allowed in the Pin Code.");
+                } else if (pinCode.length >= 6 && event.key !== "Backspace") {
+                    event.preventDefault();
+                    $(this).addClass("border-danger");
+                    toastr.error("You can only enter up to 6 digits.");
+                } else {
+                    $(this).removeClass("border-danger");
+                }
+            });
+
+    @* Additional validation on blur *@
+            $("#CollegePinCode").on("blur", function() {
+                var pinCode = $(this).val();
+
+                if (!pinCode || pinCode.length !== 6) {
+                    $(this).addClass("border-danger");
+                    toastr.error("Please enter a valid Pin Code (6 digits).");
+                } else {
+                    $(this).removeClass("border-danger");
+                }
+            });
+        });
+
+
+
+
+        function js_ValidateCollegeDetails()
+           {
+               debugger;
+               var collegeName= $("#CollegeName").val();
+               var collegeCode= $("#CollegeCode").val();
+               var collegeCity= $("#CollegeCity").val();
+               var collegeState= $("#stateDropdown").val();
+               var collegeCountry= $("#countryDropdown").val();
+               var collegePinCode= $("#CollegePinCode").val();
+               var collegeAdmin= $("#CollegeAdmin").val();
+               var collegeMail= $("#CollegeMail").val();
+               var collegePhone= $("#CollegePhone").val();
+               var collegeWebsite= $("#CollegeWebsite").val();
+
+               debugger;
+               //College Name
+               if(!collegeName){
+                   $("#CollegeName").addClass("border-danger");
+                   toastr.error("Please enter the College Name");
+                   return false;
+               }
+               else{
+                    $("#CollegeName").removeClass("border-danger");
+               }
+
+               if (collegeCode.includes(" ")) {
                 $(this).addClass("border-danger");
                 toastr.error("Spaces are not allowed in College Code.");
             } else {
                 $(this).removeClass("border-danger");
             }
-        });
 
-    @* Validation for the College Phone *@
-        $("#CollegePhone").on("keydown", function(event) {
-            var collegePhone = $(this).val();
+                if(!collegeCode){
+                   $("#CollegeCode").addClass("border-danger");
+                   toastr.error("Please enter the College Code");
+                   return false;
+               }
+               else{
+                    $("#CollegeCode").removeClass("border-danger");
+               }
 
-            // Allow only numeric keys (0-9), backspace, tab, and delete
-            if (!((event.key >= '0' && event.key <= '9') ||
-                   event.key === "Backspace" ||
-                   event.key === "Tab" ||
-                   event.key === "Delete")) {
-                event.preventDefault();
-                $(this).addClass("border-danger");
-                toastr.error("Only numbers are allowed in the College Phone Number.");
-            } else if (collegePhone.length >= 10 && event.key !== "Backspace") {
-                event.preventDefault();
-                $(this).addClass("border-danger");
-                toastr.error("You can only enter up to 10 digits.");
-            } else {
-                $(this).removeClass("border-danger");
-            }
-        });
+               //College Location City
+               if(!collegeCity){
+                   $("#CollegeCity").addClass("border-danger");
+                   toastr.error("Please enter the College City");
+                   return false;
+               }
+               else{
+                    $("#CollegeCity").removeClass("border-danger");
+               }
 
-    @* Additional validation on blur *@
-        $("#CollegePhone").on("blur", function() {
-            var collegePhone = $(this).val();
-
-            if (!collegePhone || collegePhone.length !== 10) {
-                $(this).addClass("border-danger");
-                toastr.error("Please enter a valid College Phone/Mobile number (10 digits).");
-            } else {
-                $(this).removeClass("border-danger");
-            }
-        });
-
-    @* Validation for the College Pin Code *@
-        $("#CollegePinCode").on("keydown", function(event) {
-            var pinCode = $(this).val();
-
-            if (!((event.key >= '0' && event.key <= '9') ||
-                   event.key === "Backspace" ||
-                   event.key === "Tab" ||
-                   event.key === "Delete")) {
-                event.preventDefault();
-                $(this).addClass("border-danger");
-                toastr.error("Only numbers are allowed in the Pin Code.");
-            } else if (pinCode.length >= 6 && event.key !== "Backspace") {
-                event.preventDefault();
-                $(this).addClass("border-danger");
-                toastr.error("You can only enter up to 6 digits.");
-            } else {
-                $(this).removeClass("border-danger");
-            }
-        });
-
-    @* Additional validation on blur *@
-        $("#CollegePinCode").on("blur", function() {
-            var pinCode = $(this).val();
-
-            if (!pinCode || pinCode.length !== 6) {
-                $(this).addClass("border-danger");
-                toastr.error("Please enter a valid Pin Code (6 digits).");
-            } else {
-                $(this).removeClass("border-danger");
-            }
-        });
-    });
+               //College State
+               if(!collegeState){
+                   $("#CollegeState").addClass("border-danger");
+                   toastr.error("Please select the State");
+                   return false;
+               }
+               else{
+                    $("#CollegeState").removeClass("border-danger");
+               }
 
 
+               //College Country
+               if(!collegeCountry){
+                   $("#CollegeCountry").addClass("border-danger");
+                   toastr.error("Please select the College Country");
+                   return false;
+               }
+               else{
+                    $("#CollegeCountry").removeClass("border-danger");
+               }
+
+               //College PinCode
+                  if(!collegePinCode){
+                   $("#CollegePinCode").addClass("border-danger");
+                   toastr.error("Please enter the College Pin Code");
+                   return false;
+               }
+               else{
+                    $("#CollegePinCode").removeClass("border-danger");
+               }
+
+               //College Admin
+               if(!collegeAdmin){
+                   $("#CollegeAdmin").addClass("border-danger");
+                   toastr.error("Please enter the College Admin Name");
+                   return false;
+               }
+               else{
+                    $("#CollegeAdmin").removeClass("border-danger");
+               }
+
+               //College Mail
+               if(!collegeMail){
+                   $("#CollegeMail").addClass("border-danger");
+                   toastr.error("Please enter the College Mail");
+                   return false;
+               }
+               else{
+                    $("#CollegeMail").removeClass("border-danger");
+               }
 
 
-    function js_ValidateCollegeDetails()
-       {
-           debugger;
-           var collegeName= $("#CollegeName").val();
-           var collegeCode= $("#CollegeCode").val();
-           var collegeCity= $("#CollegeCity").val();
-           var collegeState= $("#stateDropdown").val();
-           var collegeCountry= $("#countryDropdown").val();
-           var collegePinCode= $("#CollegePinCode").val();
-           var collegeAdmin= $("#CollegeAdmin").val();
-           var collegeMail= $("#CollegeMail").val();
-           var collegePhone= $("#CollegePhone").val();
-           var collegeWebsite= $("#CollegeWebsite").val();
+               //College Phone
+               if(!collegePhone){
+                   $("#CollegePhone").addClass("border-danger");
+                   toastr.error("Please enter the College Phone/Mobile number.");
+                   return false;
+               }
+               else{
+                    $("#CollegePhone").removeClass("border-danger");
+               }
 
-           debugger;
-           //College Name
-           if(!collegeName){
-               $("#CollegeName").addClass("border-danger");
-               toastr.error("Please enter the College Name");
-               return false;
-           }
-           else{
-                $("#CollegeName").removeClass("border-danger");
-           }
+               //College Website
+               if(!collegeWebsite){
+                   $("#CollegeWebsite").addClass("border-danger");
+                   toastr.error("Please enter the College Website Url");
+                   return false;
+               }
+               else{
+                    $("#CollegeWebsite").removeClass("border-danger");
+               }
 
-           if (collegeCode.includes(" ")) {
-            $(this).addClass("border-danger");
-            toastr.error("Spaces are not allowed in College Code.");
-        } else {
-            $(this).removeClass("border-danger");
-        }
 
-            if(!collegeCode){
-               $("#CollegeCode").addClass("border-danger");
-               toastr.error("Please enter the College Code");
-               return false;
-           }
-           else{
-                $("#CollegeCode").removeClass("border-danger");
-           }
-
-           //College Location City
-           if(!collegeCity){
-               $("#CollegeCity").addClass("border-danger");
-               toastr.error("Please enter the College City");
-               return false;
-           }
-           else{
-                $("#CollegeCity").removeClass("border-danger");
-           }
-
-           //College State
-           if(!collegeState){
-               $("#CollegeState").addClass("border-danger");
-               toastr.error("Please select the State");
-               return false;
-           }
-           else{
-                $("#CollegeState").removeClass("border-danger");
+               return true;
            }
 
 
-           //College Country
-           if(!collegeCountry){
-               $("#CollegeCountry").addClass("border-danger");
-               toastr.error("Please select the College Country");
-               return false;
-           }
-           else{
-                $("#CollegeCountry").removeClass("border-danger");
-           }
-
-           //College PinCode
-              if(!collegePinCode){
-               $("#CollegePinCode").addClass("border-danger");
-               toastr.error("Please enter the College Pin Code");
-               return false;
-           }
-           else{
-                $("#CollegePinCode").removeClass("border-danger");
-           }
-
-           //College Admin
-           if(!collegeAdmin){
-               $("#CollegeAdmin").addClass("border-danger");
-               toastr.error("Please enter the College Admin Name");
-               return false;
-           }
-           else{
-                $("#CollegeAdmin").removeClass("border-danger");
-           }
-
-           //College Mail
-           if(!collegeMail){
-               $("#CollegeMail").addClass("border-danger");
-               toastr.error("Please enter the College Mail");
-               return false;
-           }
-           else{
-                $("#CollegeMail").removeClass("border-danger");
-           }
+         function js_DownloadPDF() {
 
 
-           //College Phone
-           if(!collegePhone){
-               $("#CollegePhone").addClass("border-danger");
-               toastr.error("Please enter the College Phone/Mobile number.");
-               return false;
-           }
-           else{
-                $("#CollegePhone").removeClass("border-danger");
-           }
+         var displanyAddCollege = `<h1>Hello Trilok</h1><p>This is some dummy content that will be converted to a PDF.</p> `;
 
-           //College Website
-           if(!collegeWebsite){
-               $("#CollegeWebsite").addClass("border-danger");
-               toastr.error("Please enter the College Website Url");
-               return false;
-           }
-           else{
-                $("#CollegeWebsite").removeClass("border-danger");
-           }
-
-
-           return true;
-       }
-
-
-     function js_DownloadPDF() {
-        var displanyAddCollege = document.getElementById('displanyAddCollege').innerHTML; // Get inner HTML
 
         $.ajax({
             url: "@Url.Action("DownloadPDF", "UserAdmin")",
@@ -534,6 +537,7 @@
             },
             error: function (err) {
                 console.error("Error generating PDF:", err);
+                alert("There was an error generating your PDF. Please try again.");
             }
         });
     }
