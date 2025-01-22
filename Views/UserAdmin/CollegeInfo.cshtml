@@ -110,7 +110,7 @@
                     <td>@item.CollegeName</td>
                     <td>@item.CollegeCode</td>
                     <td>@item.CollegeCity</td>
-                    <td>@item.CreatedOn</td>
+                    <td>@item.CreatedOn?.ToString("dd/MM/yyyy")</td>
                     <td>@item.CollegeAdmin</td>
                     <td>@item.IsCollegeActive</td>
                     <td>
@@ -155,16 +155,24 @@
             CollegeID: 0
         };
 
+        debugger;
+
         $.ajax({
             url:"@Url.Action("College", "UserAdmin")",
             type:"POST",
              contentType: "application/json",
             data: JSON.stringify(model),
             success:function(res){
+                debugger;
+                console.log(res);
                 $("#displayNone").hide();
                 $("#displayNone1").hide();
                 $("#displayNone2").hide();
                 $("#idAddCollegeName").html(res);
+            },
+            error: function(err){
+                alert(err);
+                console.log(err);
             }
         })
 
@@ -183,7 +191,8 @@
     // Edit
         function js_CollegeEdit(collegeID) {
         var model = {
-            CollegeID: collegeID
+            CollegeID: collegeID,
+            IsUpdate:false
         };
 
 
@@ -247,7 +256,7 @@
         debugger;
         var model = {
             CollegeID :CollegeId,
-            IsUpdate:false
+            IsUpdate:true
         };
 
            if (CollegeId == 0 || CollegeId <= 0) {

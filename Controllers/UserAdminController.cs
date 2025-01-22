@@ -132,7 +132,7 @@ namespace FaceDetection.Controllers
             if (pCollegeDetails.CollegeID == 0)
             {
                 ViewBag.Insert = true;
-                return PartialView();
+                return PartialView(obj);
             }
             else
             {
@@ -145,7 +145,6 @@ namespace FaceDetection.Controllers
                     obj = JsonConvert.DeserializeObject<CollegeDetails>(resGetBody);
 
                 }
-                //Set the condition  for the Update or View
                 obj.IsUpdate = pCollegeDetails.IsUpdate;
                 ViewBag.Insert = false;
                 return PartialView(obj);
