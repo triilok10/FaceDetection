@@ -141,7 +141,7 @@ namespace Codaxy.WkHtmlToPdf
 
         public static void ConvertHtmlToPdf(PdfDocument document, PdfOutput output)
         {
-            ConvertHtmlToPdf(document, null, output);
+            ConvertHtmlToPdf(document,null, output);
         }
 
         public static void ConvertHtmlToPdf(PdfDocument document, PdfConvertEnvironment environment, PdfOutput woutput)
