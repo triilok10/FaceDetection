@@ -268,7 +268,7 @@ namespace FaceDetection.Controllers
 
         #region "Download PDF"
         [HttpPost]
-        public IActionResult DownloadPDF([FromBody] CollegeDetails pCollegeDetails)
+        public IActionResult DownloadPDF([FromBody]CollegeDetails pCollegeDetails)
         {
             var document = new PdfDocument
             {
@@ -296,7 +296,6 @@ namespace FaceDetection.Controllers
         }
 
         #endregion
-
 
     }
 

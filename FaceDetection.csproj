@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Codaxy.WkHtmlToPdf" Version="0.5.8" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
