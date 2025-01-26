@@ -267,16 +267,12 @@ namespace FaceDetection.Controllers
         }
 
         #region "Download PDF"
-        [HttpGet]
-        public IActionResult DownloadPDF(string html)
+        [HttpPost]
+        public IActionResult DownloadPDF([FromBody] CollegeDetails pCollegeDetails)
         {
-            // Log the incoming HTML for debugging
-            Console.WriteLine("HTML Content: " + html);
-
-            // Define the PDF document and conversion settings
             var document = new PdfDocument
             {
-                Html = html
+                Html = pCollegeDetails.PDFHtml
             };
 
             var output = new PdfOutput
@@ -286,19 +282,15 @@ namespace FaceDetection.Controllers
 
             try
             {
-                // Convert HTML to PDF
                 PdfConvert.ConvertHtmlToPdf(document, output);
 
-                // Reset stream position before reading
                 output.OutputStream.Position = 0;
 
-                // Return the PDF file as a download
                 var pdfBytes = ((MemoryStream)output.OutputStream).ToArray();
                 return File(pdfBytes, "application/pdf", "download.pdf");
             }
             catch (Exception ex)
             {
-                // Handle exceptions (e.g., wkhtmltopdf not found or conversion failed)
                 return BadRequest($"Error generating PDF: {ex.Message}");
             }
         }

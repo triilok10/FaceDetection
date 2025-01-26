@@ -27,6 +27,10 @@
     .border-danger {
         border-color: red !important;
     }
+
+    #displanyAddCollege {
+        color: black;
+    }
 </style>
 
 
@@ -513,20 +517,59 @@
                return true;
            }
 
-    function js_DownloadPDF() {
-        var displanyAddCollege = `<h1>Hello Trilok</h1><p style='color:black'>This is some dummy content that will be converted to a PDF.</p>`;
+    @* function js_DownloadPDF() {
+        var displanyAddCollege = document.getElementById('displanyAddCollege').innerHTML;
+
+        var model = {
+            PDFHtml: displanyAddCollege
+        }
 
         $.ajax({
             url: "@Url.Action("DownloadPDF", "UserAdmin")",
-            type: "GET",
-            data: {
-                html: displanyAddCollege
-            },
+            type: "POST",
+            data: JSON.stringify(model),
+            contentType: "application/json",
             xhrFields: {
                 responseType: 'blob'
             },
             success: function (res) {
 
+                var blob = new Blob([res], { type: 'application/pdf' });
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = 'download.pdf';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            },
+            error: function (err) {
+                console.error("Error generating PDF:", err);
+                alert("There was an error generating your PDF. Please try again.");
+            }
+        });
+    } *@
+
+
+
+
+        function js_DownloadPDF() {
+        var displanyAddCollege = document.getElementById('displanyAddCollege').innerHTML;
+        debugger
+        console.log(displanyAddCollege);
+
+        var model = {
+            PDFHtml: displanyAddCollege
+        };
+
+        $.ajax({
+            url: "@Url.Action("DownloadPDF", "UserAdmin")",
+            type: "POST",
+            data: JSON.stringify(model),
+            contentType: "application/json",
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success: function (res) {
                 var blob = new Blob([res], { type: 'application/pdf' });
                 var link = document.createElement('a');
                 link.href = window.URL.createObjectURL(blob);
