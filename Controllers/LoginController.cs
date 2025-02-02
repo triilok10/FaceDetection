@@ -98,19 +98,19 @@ namespace FaceDetection.Controllers
 
                         if (LoginType == 1)
                         {
-                            return RedirectToAction("UserAdmin", "User");
+                            return RedirectToAction("DashBoard", "UserAdmin");
                         }
                         if (LoginType == 2)
                         {
-                            return RedirectToAction("UserCollege", "User");
+                            return RedirectToAction("DashBoard", "UserCollege");
                         }
                         if (LoginType == 3)
                         {
-                            return RedirectToAction("UserTeacher", "User");
+                            return RedirectToAction("DashBoard", "User");
                         }
                         if (LoginType == 4)
                         {
-                            return RedirectToAction("UserStudent", "User");
+                            return RedirectToAction("DashBoard", "User");
                         }
                     }
                     else

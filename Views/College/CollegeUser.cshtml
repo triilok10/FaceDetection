@@ -122,7 +122,7 @@
 
     .form-control {
         border-radius: 0.25rem;
-        padding: 10px; /* Add padding for better touch targets */
+        padding: 10px;
     }
 
     .form-group label {
@@ -131,9 +131,9 @@
 
     /* Styling for checkboxes */
     input[type=checkbox] {
-        width: 20px; /* Increase size for better visibility */
-        height: 20px; /* Increase size for better visibility */
-        cursor: pointer; /* Change cursor on hover */
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
     }
 
 </style>
@@ -194,7 +194,7 @@
                     $("#IsActive").prop('checked', obj.isActive);
 
                 } else {
-                    alert("Error: " + obj.ErrMsg);
+                    alert("Error: " + obj.errMsg);
                 }
             },
             error: function(err) {

@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-builder.Services.AddScoped<SessionAdmin>();
+builder.Services.AddSingleton<SessionAdmin>();
 builder.Services.AddScoped<IClsSession, ClsSession>();
 
 
@@ -21,11 +21,6 @@ builder.Services.AddSession(options =>
 });
 
 var app = builder.Build();
-
-
-
-
-
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
