@@ -3,6 +3,7 @@ using FaceDetection.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
+using System.Globalization;
 using System.Text;
 
 namespace FaceDetection.Controllers
@@ -142,17 +143,44 @@ namespace FaceDetection.Controllers
 
         #region "Edit CollegeUser GET"
         [HttpPost]
-        public IActionResult EditCollegeUser(CollegeDetails collegeDetails)
+        public async Task<IActionResult> EditCollegeUser([FromBody] CollegeDetails collegeDetails)
         {
+            CollegeDetails obj = new CollegeDetails();
             try
             {
+                if (collegeDetails.CollegeUserID <= 0)
+                {
+                    obj.ErrMsg = "Please select the CollegeUser to Edit";
+                    obj.Status = false;
+                    return Json(new { obj });
+                }
+
+                string APIURL = baseUrl + "api/CollegeAPI/EditCollegeUser";
+
+                string json = JsonConvert.SerializeObject(collegeDetails);
+                StringContent con = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage res = await _httpClient.PostAsync(APIURL, con);
+                if (res.IsSuccessStatusCode)
+                {
+                    dynamic resBody = await res.Content.ReadAsStringAsync();
+                    obj = JsonConvert.DeserializeObject<CollegeDetails>(resBody);
+                    return Json(new { obj });
+                }
+                else
+                {
+                    obj.ErrMsg = "Error in API Call";
+                    obj.Status = false;
+                    return Json(new { obj });
+                }
 
             }
             catch (Exception ex)
             {
-
+                obj.ErrMsg = ex.Message;
+                obj.Status = false;
+                return Json(new { obj });
             }
-            return Json(new { });
 
         }
         #endregion

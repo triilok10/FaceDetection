@@ -157,5 +157,43 @@ namespace FaceDetection.API
             return obj;
         }
         #endregion
+
+        #region "Edit CollegeUser GET"
+        public IActionResult EditCollegeUser(CollegeDetails collegeDetails)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(_connectionString))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand("usp_CollegeUser", con);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Mode", 4);
+                    cmd.Parameters.AddWithValue("@CollegeUserID", collegeDetails.CollegeUserID);
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            collegeDetails.CollegeID = Convert.ToInt32(rdr["CollegeID"]);
+                            collegeDetails.Username = Convert.ToString(rdr["Username"]);
+                            collegeDetails.Password = Convert.ToString(rdr["Password"]);
+                            collegeDetails.IsSystemUser = Convert.ToBoolean(rdr["IsSystemUser"]);
+                            collegeDetails.IsActive = Convert.ToBoolean(rdr["IsActive"]);
+                            collegeDetails.Status = true;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                collegeDetails.Status = false;
+                collegeDetails.ErrMsg = ex.Message;
+
+            }
+
+            return Ok(collegeDetails);
+            #endregion
+        }
     }
 }
