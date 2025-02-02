@@ -167,28 +167,41 @@
     }
 
 
-    function js_EditCollegeUser(CollegeUserId){
+        function js_EditCollegeUser(CollegeUserId) {
+        if (CollegeUserId <= 0) {
+            alert("Please Select the CollegeUser to Edit");
+            return;
+        }
 
-            debugger;
+        var model = {
+            CollegeUserID: CollegeUserId
+        };
 
-            if(CollegeUserId<=0){
-                alert("Please Select the CollegeUser to Edit");
-            }
-            var model = {
-                CollegeUserID: CollegeUserId
-            }
+        $.ajax({
+            url: "@Url.Action("EditCollegeUser", "College")",
+            type: "POST",
+            data: JSON.stringify(model),
+            contentType: "application/json",
+            processData: false,
+            success: function(res) {
+                var obj = res.obj;
+                if (obj.status) {
+                    $("#Username").val('');
+                    $("#Password").val('');
+                    $("#Username").val(obj.username);
+                    $("#Password").val(obj.password);
+                    $("#IsSystemUser").prop('checked', obj.isSystemUser);
+                    $("#IsActive").prop('checked', obj.isActive);
 
-            $.ajax({
-                url:"@Url.Action("EditCollegeUser", "College")",
-                type:"POST",
-                data: JSON.stringify(model),
-                contentType: "application/json",
-                processData: false,
-                success: function(res){
-                },
-                error: function(err){
+                } else {
+                    alert("Error: " + obj.ErrMsg);
                 }
-            })
+            },
+            error: function(err) {
+                alert("An error occurred while processing your request.");
+                console.error(err);
+            }
+        });
     }
 
 </script>
