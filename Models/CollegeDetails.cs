@@ -41,6 +41,7 @@
         public string? Password { get; set; }
         public bool IsSystemUser { get; set; }
         public bool IsActive { get; set; }
-        public string? PDFHtml { get; set; } 
+        public string? PDFHtml { get; set; }
+        public int? CollegeUserID { get; set; }
     }
 }

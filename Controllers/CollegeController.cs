@@ -140,6 +140,22 @@ namespace FaceDetection.Controllers
 
 
 
+        #region "Edit CollegeUser GET"
+        [HttpPost]
+        public IActionResult EditCollegeUser(CollegeDetails collegeDetails)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return Json(new { });
+
+        }
+        #endregion
 
     }
 }

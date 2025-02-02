@@ -83,8 +83,8 @@
                         <td>@user.Password</td>
                         <td>@user.IsActive</td>
                         <td>
-                            <a asp-page-handler="Edit" asp-route-id="@user.CollegeID" class="btn btn-warning btn-sm">Edit</a> |
-                            <a asp-page-handler="Delete" asp-route-id="@user.CollegeID" class="btn btn-danger btn-sm">Delete</a>
+                            <a onclick="js_EditCollegeUser(@user.CollegeUserID);" class="btn btn-warning btn-sm">Edit</a> |
+                            <a onclick="js_DeleteCollegeUser(@user.CollegeUserID);" class="btn btn-danger btn-sm">Delete</a>
                         </td>
                     </tr>
                     @@i++;
@@ -164,6 +164,31 @@
        }
 
        return true;
+    }
+
+
+    function js_EditCollegeUser(CollegeUserId){
+
+            debugger;
+
+            if(CollegeUserId<=0){
+                alert("Please Select the CollegeUser to Edit");
+            }
+            var model = {
+                CollegeUserID: CollegeUserId
+            }
+
+            $.ajax({
+                url:"@Url.Action("EditCollegeUser", "College")",
+                type:"POST",
+                data: JSON.stringify(model),
+                contentType: "application/json",
+                processData: false,
+                success: function(res){
+                },
+                error: function(err){
+                }
+            })
     }
 
 </script>

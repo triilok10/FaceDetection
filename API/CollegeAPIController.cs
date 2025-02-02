@@ -93,7 +93,8 @@ namespace FaceDetection.API
                                 {
                                     IsActive = Convert.ToBoolean(rdr["IsActive"]),
                                     Username = Convert.ToString(rdr["Username"]),
-                                    Password = Convert.ToString(rdr["Password"])
+                                    Password = Convert.ToString(rdr["Password"]),
+                                    CollegeUserID = Convert.ToInt32(rdr["CollegeUserID"])
                                 });
                             }
                         }
