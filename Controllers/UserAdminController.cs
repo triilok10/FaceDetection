@@ -261,10 +261,13 @@ namespace FaceDetection.Controllers
         }
         #endregion
 
+        #region "Module"
+        [HttpGet]
         public IActionResult Module()
         {
             return View();
         }
+        #endregion
 
         #region "Download PDF"
         [HttpPost]
